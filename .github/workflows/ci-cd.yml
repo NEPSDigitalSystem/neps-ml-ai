@@ -19,13 +19,23 @@ jobs:
       - name: Check for application files
         id: check
         run: |
+          # Define dependency existence
+          HAS_DEPS="false"
+          if [ -f "requirements.txt" ] || [ -f "package.json" ]; then
+            HAS_DEPS="true"
+          fi
+
           if [ ! -f "Dockerfile" ]; then
             echo "::warning::No Dockerfile found. Skipping build."
+            echo "SKIP_BUILD=true" >> $GITHUB_OUTPUT
+          elif [ "$HAS_DEPS" = "false" ]; then
+            echo "::warning::Dockerfile exists but no dependency file (package.json/requirements.txt) found. Skipping build to prevent failure."
             echo "SKIP_BUILD=true" >> $GITHUB_OUTPUT
           else
             echo "SKIP_BUILD=false" >> $GITHUB_OUTPUT
           fi
-          if [ ! -f "requirements.txt" ] && [ ! -f "package.json" ]; then
+
+          if [ "$HAS_DEPS" = "false" ]; then
             echo "::warning::No dependency file found. Skipping tests."
             echo "SKIP_TEST=true" >> $GITHUB_OUTPUT
           else
