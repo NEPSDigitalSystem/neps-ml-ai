@@ -80,7 +80,7 @@ jobs:
           push: ${{ github.event_name == 'push' }}
           tags: |
             ${{ env.IMAGE }}:${{ github.sha }}
-            ${{ env.IMAGE }}:${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.number) || github.ref_name }}
+            ${{ github.ref_name == 'main' && format('{0}:latest', env.IMAGE) || format('{0}:{1}', env.IMAGE, replace(github.ref_name, '/', '-')) }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
