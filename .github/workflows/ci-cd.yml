@@ -73,11 +73,14 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GHCR_PAT || secrets.GITHUB_TOKEN }}
-      - name: Sanitize tag
-        id: tag
+      - name: Sanitize ref for Docker tag
+        id: meta
         run: |
-          SAFE_TAG=$(echo "${{ github.ref_name }}" | sed 's/[^a-zA-Z0-9._-]/-/g')
-          echo "safe-tag=$SAFE_TAG" >> $GITHUB_OUTPUT
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            echo "tag=pr-${{ github.event.number }}" >> $GITHUB_OUTPUT
+          else
+            echo "tag=$(echo '${{ github.ref_name }}' | sed 's/[^a-zA-Z0-9._-]/-/g')" >> $GITHUB_OUTPUT
+          fi
       - name: Build & Push
         uses: docker/build-push-action@v7
         with:
@@ -85,7 +88,8 @@ jobs:
           push: ${{ github.event_name == 'push' }}
           tags: |
             ${{ env.IMAGE }}:${{ github.sha }}
-            ${{ github.ref == 'refs/heads/main' && format('{0}:latest', env.IMAGE) || format('{0}:{1}', env.IMAGE, steps.tag.outputs.safe-tag) }}
+            ${{ env.IMAGE }}:${{ steps.meta.outputs.tag }}
+            ${{ github.ref == 'refs/heads/main' && format('{0}:latest', env.IMAGE) || '' }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
