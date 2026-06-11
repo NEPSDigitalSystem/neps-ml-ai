@@ -1,0 +1,5 @@
+# NEPS ML/AI Requirements
+fastapi
+uvicorn
+# Add your ML dependencies here (e.g., pandas, scikit-learn, tensorflow, etc.)
+# For now, the mock data doesn't require any special dependencies!
