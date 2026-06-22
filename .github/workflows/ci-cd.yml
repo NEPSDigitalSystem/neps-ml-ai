@@ -139,7 +139,9 @@ jobs:
           script: |
             cd /opt/neps-infrastructure
             echo "${{ secrets.GHCR_PAT }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-            docker compose pull neps-ml-ai
-            docker compose up -d --no-deps neps-ml-ai
+            export IMAGE_TAG=${{ github.sha }}
+            docker compose -f docker-compose.yml -f docker-compose.prod.yml pull neps-ml-ai
+            docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --no-deps neps-ml-ai
             docker image prune -f
             echo "Deployed neps-ml-ai:${{ github.sha }} at $(date)"
+            echo "${{ github.sha }},neps-ml-ai,$(date -u +"%Y-%m-%dT%H:%M:%SZ")" >> .deployment-history
