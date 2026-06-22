@@ -52,7 +52,7 @@ jobs:
           pip install -r requirements.txt
           pip install pytest pytest-cov
       - name: Run tests
-        run: pytest tests/ || echo "No tests yet"
+        run: pytest tests/
 
   build:
     needs: [check-structure, test]
@@ -111,13 +111,13 @@ jobs:
           password: ${{ secrets.GHCR_PAT }}
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
-        continue-on-error: true
+        continue-on-error: false
         with:
           image-ref: ${{ env.IMAGE }}:${{ github.sha }}
           format: 'sarif'
           output: 'trivy-results.sarif'
           severity: 'CRITICAL,HIGH'
-          exit-code: '0'
+          exit-code: '1'
       - name: Upload Trivy results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v4
         if: always() && hashFiles('trivy-results.sarif') != ''
