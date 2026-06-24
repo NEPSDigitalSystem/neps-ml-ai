@@ -50,15 +50,9 @@ jobs:
       - name: Install deps
         run: |
           pip install -r requirements.txt
-          pip install pytest pytest-cov
       - name: Run tests
         run: |
-          if [ -d "tests" ]; then
-            pytest tests/
-          else
-            echo "WARNING: tests/ directory not found. Skipping tests."
-            echo "TODO: ML/AI team must add unit tests."
-          fi
+          pytest tests/ -v --tb=short
 
   build:
     needs: [check-structure, test]
