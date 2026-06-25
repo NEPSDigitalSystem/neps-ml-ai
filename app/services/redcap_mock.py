@@ -153,7 +153,7 @@ class RedCapMockClient:
 
             # Comprehensive waves (6, 12, 18, 24)
             for wave_month in [6, 12, 18, 24]:
-                if any(r["month"] == wave_month for r in participant_responses):
+                if any(r.get("month") == wave_month for r in participant_responses):
                     wave = self._generate_comprehensive_wave(pid, wave_month)
                     participant_responses.append(wave)
 
@@ -407,7 +407,9 @@ class RedCapMockClient:
             import io
             output = io.StringIO()
             if all_records:
-                writer = csv.DictWriter(output, fieldnames=all_records[0].keys())
+                # Union of all keys across all record types (monthly + comprehensive waves differ)
+                all_keys = list(dict.fromkeys(k for r in all_records for k in r.keys()))
+                writer = csv.DictWriter(output, fieldnames=all_keys, extrasaction='ignore')
                 writer.writeheader()
                 writer.writerows(all_records)
             return output.getvalue()
