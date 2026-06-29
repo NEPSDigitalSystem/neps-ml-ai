@@ -4,7 +4,7 @@ uvicorn
 prometheus-fastapi-instrumentator
 
 # Testing
-pytest>=7.0.0
+pytest>=9.1.1
 pytest-cov>=4.0.0
 
 # Add your ML dependencies here (e.g., pandas, scikit-learn, tensorflow, etc.)
