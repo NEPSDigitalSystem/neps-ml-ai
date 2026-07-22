@@ -17,7 +17,7 @@ jobs:
       SKIP_BUILD: ${{ steps.check.outputs.SKIP_BUILD }}
       SKIP_TEST: ${{ steps.check.outputs.SKIP_TEST }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Check for application files
         id: check
         run: |
@@ -41,7 +41,7 @@ jobs:
     if: needs.check-structure.outputs.SKIP_TEST != 'true'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Set up Python
         uses: actions/setup-python@v7
         with:
@@ -64,7 +64,7 @@ jobs:
     outputs:
       image-tag: ${{ github.sha }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v4
       - name: Log in to GHCR
