@@ -1,151 +1,151 @@
 participant_id,country,site,school,age,date_of_birth,gender,grade_level,enrollment_date,cohort_status,consent_status,phone_contact,employment_status,food_security,healthcare_access,socioeconomic_status
-NEPS-GHA-0001,Ghana,Tamale,Ghana SHS,20,2006-04-10,Female,Not in school,2026-04-07,active,consented,+233300604502,student,secure,good,lower_middle
-NEPS-GHA-0002,Ghana,Sogakope,Presbyterian Boys,18,2007-08-02,Male,University,2026-04-05,withdrawn,consented,+233371432881,unemployed,moderately_insecure,fair,lower_middle
-NEPS-GHA-0003,Ghana,Accra,Methodist Boys,14,2012-03-17,Female,SHS,2025-09-24,withdrawn,consented,+233775770529,student,secure,good,low
-NEPS-GHA-0004,Ghana,Tamale,Accra Academy,11,2014-08-26,Male,Not in school,2025-07-06,active,consented,+233285675980,student,severely_insecure,fair,low
-NEPS-GHA-0005,Ghana,Tamale,Ghana SHS,16,2010-01-14,Other,SHS,2025-01-23,active,consented,+233383758720,student,mildly_insecure,good,lower_middle
-NEPS-GHA-0006,Ghana,Sogakope,Presbyterian Boys,17,2008-11-23,Female,Not in school,2025-07-30,active,consented,+233538715135,student,moderately_insecure,poor,low
-NEPS-GHA-0007,Ghana,Ho,St. Augustine's,11,2015-02-16,Female,JHS,2024-09-29,active,consented,+233802764446,student,severely_insecure,fair,low
-NEPS-GHA-0008,Ghana,Sogakope,St. Augustine's,16,2009-08-11,Female,Not in school,2025-03-20,active,consented,+233930661141,self-employed,secure,fair,middle
-NEPS-GHA-0009,Ghana,Ho,Accra Academy,11,2014-11-19,Female,JHS,2025-04-07,active,pending,+233486501362,student,mildly_insecure,fair,lower_middle
-NEPS-GHA-0010,Ghana,Tamale,Ghana SHS,14,2011-10-26,Male,JHS,2025-11-22,inactive,pending,+233520452650,casual_labor,moderately_insecure,good,middle
-NEPS-GHA-0011,Ghana,Tamale,Accra Academy,15,2011-03-15,Male,SHS,2024-10-27,active,declined,+233530190783,casual_labor,severely_insecure,poor,low
-NEPS-GHA-0012,Ghana,Sogakope,Ghana SHS,13,2012-08-18,Male,SHS,2026-02-11,active,consented,+233484602384,student,secure,fair,upper_middle
-NEPS-GHA-0013,Ghana,Accra,Presbyterian Boys,24,2001-09-04,Female,Vocational,2024-03-20,active,consented,+233441266931,student,mildly_insecure,none,lower_middle
-NEPS-GHA-0014,Ghana,Ho,Methodist Boys,10,2015-08-07,Other,Primary,2024-10-12,withdrawn,consented,+233455555531,student,secure,fair,middle
-NEPS-GHA-0015,Ghana,Sogakope,Methodist Boys,13,2012-09-01,Male,JHS,2025-12-18,active,consented,+233580424119,not_applicable,moderately_insecure,good,lower_middle
-NEPS-GHA-0016,Ghana,Sogakope,Ghana SHS,17,2009-05-09,Male,Not in school,2024-06-12,active,consented,+233350519597,student,secure,poor,lower_middle
-NEPS-GHA-0017,Ghana,Tamale,Ghana SHS,14,2011-10-12,Female,JHS,2025-08-20,active,consented,+233300140141,student,severely_insecure,poor,low
-NEPS-GHA-0018,Ghana,Sogakope,Ghana SHS,16,2009-09-30,Male,Not in school,2024-12-26,withdrawn,consented,+233654200826,student,secure,fair,middle
-NEPS-GHA-0019,Ghana,Accra,St. Augustine's,13,2013-01-04,Female,JHS,2025-09-22,active,pending,+233369042105,student,moderately_insecure,poor,low
-NEPS-GHA-0020,Ghana,Ho,Presbyterian Boys,11,2015-03-01,Male,Not in school,2026-02-21,active,consented,+233650139320,student,secure,good,lower_middle
-NEPS-GHA-0021,Ghana,Accra,Accra Academy,13,2012-06-27,Other,JHS,2024-04-29,inactive,consented,+233866964667,student,secure,fair,middle
-NEPS-GHA-0022,Ghana,Accra,St. Augustine's,18,2008-02-17,Male,University,2024-11-30,withdrawn,consented,+233856783995,self-employed,moderately_insecure,poor,middle
-NEPS-GHA-0023,Ghana,Ho,St. Augustine's,14,2011-07-01,Male,JHS,2026-01-16,active,consented,+233418610946,student,mildly_insecure,good,low
-NEPS-GHA-0024,Ghana,Sogakope,St. Augustine's,17,2009-01-28,Male,SHS,2023-12-18,inactive,consented,+233674417266,student,mildly_insecure,excellent,upper_middle
-NEPS-GHA-0025,Ghana,Accra,Presbyterian Boys,10,2016-04-07,Female,Primary,2026-02-14,active,consented,+233591541578,student,mildly_insecure,good,low
-NEPS-GHA-0026,Ghana,Tamale,Methodist Boys,13,2012-06-20,Female,Not in school,2025-08-20,inactive,consented,+233374484941,student,moderately_insecure,poor,lower_middle
-NEPS-GHA-0027,Ghana,Accra,Methodist Boys,10,2016-03-04,Male,Not in school,2024-04-08,active,consented,+233610751046,student,moderately_insecure,poor,low
-NEPS-GHA-0028,Ghana,Ho,Presbyterian Boys,13,2013-02-22,Female,JHS,2024-01-17,active,consented,+233274539964,student,severely_insecure,none,low
-NEPS-GHA-0029,Ghana,Accra,St. Augustine's,20,2005-09-19,Male,Not in school,2025-03-19,active,declined,+233241078352,unemployed,mildly_insecure,excellent,lower_middle
-NEPS-GHA-0030,Ghana,Tamale,Presbyterian Boys,16,2009-12-11,Male,Not in school,2024-04-16,active,consented,+233758260221,student,severely_insecure,good,lower_middle
-NEPS-GHA-0031,Ghana,Ho,St. Augustine's,16,2010-05-01,Female,Not in school,2024-06-21,active,consented,+233948621833,student,severely_insecure,good,low
-NEPS-GHA-0032,Ghana,Sogakope,St. Augustine's,12,2014-02-26,Male,JHS,2025-02-26,withdrawn,consented,+233425681936,student,moderately_insecure,good,lower_middle
-NEPS-GHA-0033,Ghana,Ho,Accra Academy,19,2006-07-06,Female,SHS,2025-06-07,active,consented,+233753462378,employed,secure,fair,middle
-NEPS-GHA-0034,Ghana,Tamale,Methodist Boys,23,2003-02-07,Female,SHS,2024-06-13,withdrawn,consented,+233876205431,unemployed,secure,excellent,middle
-NEPS-GHA-0035,Ghana,Sogakope,Accra Academy,17,2008-11-13,Female,Not in school,2025-08-26,active,pending,+233947229579,student,mildly_insecure,poor,upper_middle
-NEPS-GHA-0036,Ghana,Sogakope,St. Augustine's,18,2008-01-30,Male,Vocational,2023-12-16,withdrawn,consented,+233972314530,student,secure,good,upper_middle
-NEPS-GHA-0037,Ghana,Accra,Presbyterian Boys,17,2009-03-16,Female,SHS,2024-04-01,active,consented,+233672309605,student,severely_insecure,poor,low
-NEPS-GHA-0038,Ghana,Sogakope,Methodist Boys,13,2013-01-16,Female,SHS,2025-05-24,active,consented,+233782624278,student,secure,good,middle
-NEPS-GHA-0039,Ghana,Ho,Methodist Boys,10,2016-02-19,Female,Not in school,2024-01-01,active,consented,+233577698143,not_applicable,mildly_insecure,poor,middle
-NEPS-GHA-0040,Ghana,Sogakope,Ghana SHS,23,2002-11-05,Female,University,2024-10-28,active,consented,+233929223044,employed,moderately_insecure,good,lower_middle
-NEPS-GHA-0041,Ghana,Accra,Presbyterian Boys,23,2002-10-11,Male,Not in school,2025-12-23,active,pending,+233395130056,employed,severely_insecure,poor,low
-NEPS-GHA-0042,Ghana,Accra,Presbyterian Boys,16,2009-12-20,Female,Not in school,2025-09-28,withdrawn,consented,+233779196799,student,moderately_insecure,good,middle
-NEPS-GHA-0043,Ghana,Accra,St. Augustine's,13,2012-07-07,Male,JHS,2026-02-21,active,consented,+233918825964,student,moderately_insecure,none,lower_middle
-NEPS-GHA-0044,Ghana,Accra,Presbyterian Boys,13,2012-10-09,Female,SHS,2024-05-16,active,consented,+233821358005,student,mildly_insecure,none,middle
-NEPS-GHA-0045,Ghana,Accra,St. Augustine's,19,2006-06-25,Male,Vocational,2025-04-13,withdrawn,pending,+233844687060,unemployed,secure,poor,middle
-NEPS-GHA-0046,Ghana,Sogakope,Ghana SHS,22,2004-05-16,Female,University,2025-05-12,active,consented,+233588896443,unemployed,secure,fair,lower_middle
-NEPS-GHA-0047,Ghana,Tamale,Accra Academy,16,2010-03-07,Female,Not in school,2024-04-11,withdrawn,consented,+233546071904,student,moderately_insecure,none,lower_middle
-NEPS-GHA-0048,Ghana,Ho,Presbyterian Boys,14,2011-10-18,Male,JHS,2025-08-26,active,consented,+233477403790,student,moderately_insecure,fair,lower_middle
-NEPS-GHA-0049,Ghana,Sogakope,Methodist Boys,24,2001-08-06,Male,University,2024-05-14,active,consented,+233711201082,employed,moderately_insecure,fair,low
-NEPS-GHA-0050,Ghana,Ho,Presbyterian Boys,22,2004-05-29,Female,University,2026-01-27,active,declined,+233790975123,employed,secure,fair,middle
-NEPS-SIE-0051,Sierra Leone,Bo,Christ the King,21,2004-10-17,Prefer not to say,Not in school,2025-07-29,active,consented,+232993070706,student,moderately_insecure,fair,lower_middle
-NEPS-SIE-0052,Sierra Leone,Freetown,Prince of Wales,21,2004-08-09,Male,University,2024-03-15,active,consented,+232494539550,student,secure,fair,lower_middle
-NEPS-SIE-0053,Sierra Leone,Bo,Bo Government,18,2008-01-08,Male,University,2024-05-18,active,consented,+232255165334,employed,severely_insecure,fair,low
-NEPS-SIE-0054,Sierra Leone,Bo,Bombali,11,2015-05-02,Other,Not in school,2025-03-18,active,consented,+232799226355,student,moderately_insecure,fair,lower_middle
-NEPS-SIE-0055,Sierra Leone,Freetown,St. Joseph,19,2006-07-25,Female,Vocational,2025-09-13,active,consented,+232994664845,student,severely_insecure,fair,low
-NEPS-SIE-0056,Sierra Leone,Bo,Christ the King,20,2006-02-18,Female,University,2025-08-05,active,consented,+232448545713,student,mildly_insecure,fair,low
-NEPS-SIE-0057,Sierra Leone,Freetown,Christ the King,21,2004-10-17,Other,Not in school,2026-02-19,active,consented,+232895392488,self-employed,severely_insecure,poor,low
-NEPS-SIE-0058,Sierra Leone,Bo,Bombali,23,2003-03-27,Female,SHS,2026-02-18,active,consented,+232632190231,unemployed,secure,none,upper_middle
-NEPS-SIE-0059,Sierra Leone,Makeni,Prince of Wales,18,2007-09-27,Male,University,2025-02-08,inactive,pending,+232817615339,student,secure,fair,upper_middle
-NEPS-SIE-0060,Sierra Leone,Bo,Prince of Wales,22,2003-06-28,Other,Not in school,2024-01-12,active,consented,+232881594897,student,moderately_insecure,poor,middle
-NEPS-SIE-0061,Sierra Leone,Freetown,Bo Government,17,2008-12-09,Male,Vocational,2025-03-10,inactive,pending,+232790661740,student,severely_insecure,fair,lower_middle
-NEPS-SIE-0062,Sierra Leone,Makeni,Christ the King,11,2014-12-25,Female,JHS,2025-08-17,active,consented,+232401415220,casual_labor,mildly_insecure,poor,lower_middle
-NEPS-SIE-0063,Sierra Leone,Makeni,St. Joseph,19,2006-09-24,Female,University,2024-07-31,active,consented,+232876481264,student,mildly_insecure,good,lower_middle
-NEPS-SIE-0064,Sierra Leone,Makeni,Christ the King,21,2005-03-17,Female,SHS,2025-06-18,active,pending,+232735126623,employed,secure,none,lower_middle
-NEPS-SIE-0065,Sierra Leone,Freetown,Christ the King,18,2007-06-10,Male,University,2025-07-27,active,consented,+232346574716,employed,mildly_insecure,poor,lower_middle
-NEPS-SIE-0066,Sierra Leone,Bo,Bombali,22,2003-11-07,Female,University,2025-05-19,inactive,consented,+232359553112,employed,severely_insecure,fair,low
-NEPS-SIE-0067,Sierra Leone,Freetown,Christ the King,17,2008-12-11,Female,SHS,2025-05-27,active,consented,+232641066404,student,mildly_insecure,fair,lower_middle
-NEPS-SIE-0068,Sierra Leone,Bo,Prince of Wales,21,2004-10-07,Male,Not in school,2024-05-10,inactive,consented,+232833701411,student,severely_insecure,none,low
-NEPS-SIE-0069,Sierra Leone,Makeni,Bo Government,23,2002-10-25,Male,Not in school,2026-01-20,active,declined,+232563527356,employed,moderately_insecure,poor,lower_middle
-NEPS-SIE-0070,Sierra Leone,Freetown,Christ the King,20,2006-04-26,Female,Not in school,2025-05-31,withdrawn,consented,+232273466219,self-employed,moderately_insecure,fair,low
-NEPS-SIE-0071,Sierra Leone,Bo,Christ the King,13,2013-04-19,Male,JHS,2025-02-12,active,consented,+232260257560,student,severely_insecure,fair,low
-NEPS-SIE-0072,Sierra Leone,Makeni,St. Joseph,15,2010-10-28,Female,SHS,2025-12-04,active,consented,+232734366139,student,mildly_insecure,fair,middle
-NEPS-SIE-0073,Sierra Leone,Makeni,Christ the King,13,2012-10-11,Female,Not in school,2024-07-18,active,consented,+232571048258,student,secure,none,middle
-NEPS-SIE-0074,Sierra Leone,Bo,Prince of Wales,20,2005-11-01,Male,Vocational,2024-05-26,active,consented,+232950845198,unemployed,secure,fair,middle
-NEPS-SIE-0075,Sierra Leone,Freetown,Bombali,23,2002-07-05,Female,University,2025-03-23,active,pending,+232507298630,employed,mildly_insecure,poor,middle
-NEPS-SIE-0076,Sierra Leone,Freetown,Christ the King,22,2003-12-09,Female,Not in school,2025-09-20,active,pending,+232894002948,employed,moderately_insecure,poor,lower_middle
-NEPS-SIE-0077,Sierra Leone,Makeni,Bombali,22,2003-10-25,Male,Not in school,2026-03-29,active,consented,+232592836532,unemployed,secure,fair,lower_middle
-NEPS-SIE-0078,Sierra Leone,Freetown,St. Joseph,24,2002-01-19,Female,University,2024-01-03,withdrawn,consented,+232280852074,self-employed,severely_insecure,none,middle
-NEPS-SIE-0079,Sierra Leone,Makeni,Christ the King,23,2002-06-26,Male,University,2024-04-21,active,consented,+232595765839,student,severely_insecure,poor,low
-NEPS-SIE-0080,Sierra Leone,Freetown,Bo Government,19,2006-11-23,Other,Vocational,2024-01-11,active,consented,+232895411453,student,moderately_insecure,poor,lower_middle
-NEPS-SIE-0081,Sierra Leone,Bo,Christ the King,24,2001-06-14,Male,SHS,2025-06-27,active,consented,+232617305280,student,secure,good,lower_middle
-NEPS-SIE-0082,Sierra Leone,Makeni,Christ the King,20,2005-06-15,Female,University,2024-10-26,active,declined,+232235128844,unemployed,secure,poor,lower_middle
-NEPS-SIE-0083,Sierra Leone,Freetown,Bo Government,13,2012-10-20,Prefer not to say,JHS,2025-02-01,active,consented,+232403805386,not_applicable,secure,poor,low
-NEPS-SIE-0084,Sierra Leone,Freetown,Bombali,11,2014-06-30,Male,Primary,2025-09-27,active,consented,+232795076080,student,secure,none,lower_middle
-NEPS-SIE-0085,Sierra Leone,Makeni,Prince of Wales,13,2013-02-05,Prefer not to say,Not in school,2025-05-31,active,consented,+232318032515,student,moderately_insecure,fair,low
-NEPS-SIE-0086,Sierra Leone,Bo,Christ the King,12,2014-05-28,Female,JHS,2025-05-01,active,consented,+232711365210,student,moderately_insecure,fair,low
-NEPS-SIE-0087,Sierra Leone,Freetown,Bo Government,18,2007-08-07,Female,SHS,2026-01-11,active,consented,+232233447745,student,moderately_insecure,poor,lower_middle
-NEPS-SIE-0088,Sierra Leone,Makeni,Bombali,23,2002-11-14,Female,University,2025-02-20,active,consented,+232879760958,employed,severely_insecure,fair,low
-NEPS-SIE-0089,Sierra Leone,Makeni,St. Joseph,21,2004-12-22,Female,University,2025-04-07,withdrawn,consented,+232791991695,employed,moderately_insecure,poor,low
-NEPS-SIE-0090,Sierra Leone,Bo,Prince of Wales,16,2009-10-17,Male,SHS,2025-09-11,active,declined,+232937468465,unemployed,mildly_insecure,poor,lower_middle
-NEPS-SIE-0091,Sierra Leone,Bo,Bo Government,11,2015-04-22,Prefer not to say,Primary,2026-01-27,active,consented,+232641102414,student,mildly_insecure,good,lower_middle
-NEPS-SIE-0092,Sierra Leone,Freetown,Christ the King,23,2003-05-12,Male,Not in school,2025-07-12,active,pending,+232594665673,student,moderately_insecure,fair,lower_middle
-NEPS-SIE-0093,Sierra Leone,Bo,Prince of Wales,19,2007-02-11,Female,Not in school,2024-01-27,active,consented,+232944609017,employed,moderately_insecure,poor,lower_middle
-NEPS-SIE-0094,Sierra Leone,Freetown,Bombali,12,2014-01-16,Female,JHS,2024-05-13,active,consented,+232232917811,not_applicable,moderately_insecure,fair,low
-NEPS-SIE-0095,Sierra Leone,Freetown,Prince of Wales,13,2012-11-24,Female,Not in school,2025-02-27,withdrawn,consented,+232863398699,student,mildly_insecure,fair,lower_middle
-NEPS-SIE-0096,Sierra Leone,Bo,Bombali,14,2011-10-22,Male,JHS,2024-06-24,active,consented,+232836873048,student,mildly_insecure,fair,lower_middle
-NEPS-SIE-0097,Sierra Leone,Freetown,Bo Government,20,2005-12-31,Female,SHS,2026-03-17,withdrawn,consented,+232328832213,casual_labor,secure,fair,middle
-NEPS-SIE-0098,Sierra Leone,Freetown,Bo Government,21,2004-10-29,Male,Not in school,2025-11-04,active,consented,+232668387228,employed,secure,poor,middle
-NEPS-SIE-0099,Sierra Leone,Bo,Christ the King,24,2002-04-29,Male,University,2025-06-16,active,pending,+232863706947,employed,moderately_insecure,poor,lower_middle
-NEPS-SIE-0100,Sierra Leone,Makeni,Prince of Wales,11,2014-10-24,Female,Not in school,2023-12-20,active,consented,+232282011731,student,secure,good,middle
-NEPS-TAN-0101,Tanzania,Dar es Salaam,Ilboru,18,2007-09-18,Male,Not in school,2025-10-16,active,consented,+255846820987,student,severely_insecure,none,low
-NEPS-TAN-0102,Tanzania,Arusha,Kisutu,12,2013-07-18,Female,Not in school,2024-12-13,inactive,consented,+255873469560,student,moderately_insecure,poor,lower_middle
-NEPS-TAN-0103,Tanzania,Dar es Salaam,Ilboru,17,2009-05-02,Male,Vocational,2025-01-07,active,consented,+255508246619,student,mildly_insecure,good,lower_middle
-NEPS-TAN-0104,Tanzania,Arusha,VTA,19,2006-08-06,Other,University,2024-11-29,active,consented,+255849620068,employed,severely_insecure,poor,middle
-NEPS-TAN-0105,Tanzania,Mwanza,VTA,12,2014-05-04,Male,JHS,2025-01-26,active,consented,+255671825556,not_applicable,secure,poor,upper_middle
-NEPS-TAN-0106,Tanzania,Mwanza,St. Augustine,19,2007-03-17,Female,Vocational,2025-04-25,active,consented,+255301474984,student,secure,fair,middle
-NEPS-TAN-0107,Tanzania,Mwanza,St. Augustine,14,2012-01-27,Female,JHS,2024-04-21,inactive,consented,+255904433388,casual_labor,moderately_insecure,fair,low
-NEPS-TAN-0108,Tanzania,Mwanza,Ilboru,12,2013-08-04,Female,SHS,2024-05-07,withdrawn,consented,+255935958147,student,moderately_insecure,poor,low
-NEPS-TAN-0109,Tanzania,Dar es Salaam,Moshi,20,2005-06-28,Female,University,2025-02-23,active,declined,+255366371119,student,mildly_insecure,none,lower_middle
-NEPS-TAN-0110,Tanzania,Dar es Salaam,VTA,23,2003-04-17,Female,University,2024-11-29,active,consented,+255374211616,unemployed,severely_insecure,good,low
-NEPS-TAN-0111,Tanzania,Dar es Salaam,Moshi,22,2004-03-14,Male,University,2024-04-24,active,consented,+255773390109,employed,mildly_insecure,fair,middle
-NEPS-TAN-0112,Tanzania,Dar es Salaam,VTA,22,2003-10-10,Female,Not in school,2023-12-29,active,consented,+255374008639,unemployed,mildly_insecure,fair,middle
-NEPS-TAN-0113,Tanzania,Arusha,VTA,12,2014-01-27,Female,SHS,2026-03-10,active,consented,+255492907427,not_applicable,moderately_insecure,good,lower_middle
-NEPS-TAN-0114,Tanzania,Arusha,Kisutu,12,2013-10-24,Male,JHS,2026-01-29,active,consented,+255287623171,student,moderately_insecure,fair,low
-NEPS-TAN-0115,Tanzania,Arusha,St. Augustine,10,2015-12-23,Female,Primary,2026-01-21,active,consented,+255957563699,student,severely_insecure,fair,low
-NEPS-TAN-0116,Tanzania,Dar es Salaam,Kisutu,19,2007-06-04,Female,Vocational,2026-02-10,withdrawn,consented,+255330833665,student,secure,none,high
-NEPS-TAN-0117,Tanzania,Arusha,Ilboru,16,2009-07-13,Female,Vocational,2024-02-10,active,consented,+255512750915,student,moderately_insecure,fair,lower_middle
-NEPS-TAN-0118,Tanzania,Mwanza,Ilboru,19,2006-12-08,Prefer not to say,University,2025-08-29,active,consented,+255745055605,student,moderately_insecure,fair,lower_middle
-NEPS-TAN-0119,Tanzania,Mwanza,Moshi,16,2009-10-08,Male,Not in school,2026-03-19,active,consented,+255824813934,self-employed,mildly_insecure,excellent,lower_middle
-NEPS-TAN-0120,Tanzania,Mwanza,St. Augustine,12,2014-05-13,Female,JHS,2025-05-07,active,pending,+255267753684,student,secure,poor,lower_middle
-NEPS-TAN-0121,Tanzania,Dar es Salaam,Moshi,10,2016-01-05,Prefer not to say,Primary,2025-10-08,active,consented,+255894604127,student,secure,none,upper_middle
-NEPS-TAN-0122,Tanzania,Mwanza,St. Augustine,15,2011-05-12,Female,University,2024-06-30,active,declined,+255732794158,student,secure,none,middle
-NEPS-TAN-0123,Tanzania,Arusha,Moshi,15,2010-09-13,Female,Not in school,2025-08-02,active,consented,+255909656613,unemployed,secure,poor,low
-NEPS-TAN-0124,Tanzania,Dar es Salaam,St. Augustine,17,2008-08-01,Male,Not in school,2024-04-28,inactive,consented,+255261587757,student,secure,excellent,middle
-NEPS-TAN-0125,Tanzania,Arusha,Moshi,15,2010-09-16,Female,Vocational,2024-02-02,active,consented,+255892738367,student,secure,none,lower_middle
-NEPS-TAN-0126,Tanzania,Arusha,Kisutu,16,2009-08-19,Female,Not in school,2026-03-30,active,consented,+255897460535,student,severely_insecure,fair,lower_middle
-NEPS-TAN-0127,Tanzania,Arusha,Kisutu,11,2015-05-22,Female,Not in school,2024-04-09,active,consented,+255945156039,student,moderately_insecure,good,middle
-NEPS-TAN-0128,Tanzania,Mwanza,VTA,11,2015-03-27,Female,Primary,2026-02-16,active,consented,+255269727803,not_applicable,mildly_insecure,good,lower_middle
-NEPS-TAN-0129,Tanzania,Dar es Salaam,Moshi,14,2012-01-03,Male,JHS,2025-11-22,active,consented,+255730452018,not_applicable,moderately_insecure,poor,lower_middle
-NEPS-TAN-0130,Tanzania,Arusha,VTA,18,2007-08-17,Male,University,2025-04-20,active,consented,+255641087900,casual_labor,secure,none,lower_middle
-NEPS-TAN-0131,Tanzania,Arusha,VTA,11,2015-04-01,Female,Not in school,2025-06-12,active,consented,+255338548086,student,moderately_insecure,fair,lower_middle
-NEPS-TAN-0132,Tanzania,Arusha,Kisutu,24,2002-05-10,Male,Not in school,2024-01-02,inactive,pending,+255284675178,student,secure,good,upper_middle
-NEPS-TAN-0133,Tanzania,Mwanza,Moshi,20,2005-08-28,Other,University,2025-07-25,active,consented,+255973773537,student,secure,fair,upper_middle
-NEPS-TAN-0134,Tanzania,Dar es Salaam,St. Augustine,23,2002-08-23,Female,Vocational,2026-03-21,withdrawn,consented,+255886111573,student,secure,poor,low
-NEPS-TAN-0135,Tanzania,Arusha,St. Augustine,24,2001-07-21,Male,Not in school,2024-10-21,active,consented,+255672022811,casual_labor,mildly_insecure,poor,middle
-NEPS-TAN-0136,Tanzania,Dar es Salaam,Moshi,17,2009-02-21,Prefer not to say,Not in school,2025-05-19,active,consented,+255803068400,student,moderately_insecure,poor,lower_middle
-NEPS-TAN-0137,Tanzania,Arusha,VTA,13,2012-10-09,Female,JHS,2025-12-28,active,pending,+255371476207,student,secure,fair,middle
-NEPS-TAN-0138,Tanzania,Dar es Salaam,VTA,21,2004-12-28,Male,University,2025-10-20,inactive,consented,+255458480413,employed,moderately_insecure,poor,low
-NEPS-TAN-0139,Tanzania,Mwanza,Moshi,15,2011-05-12,Male,SHS,2026-03-12,active,consented,+255483975609,student,moderately_insecure,poor,middle
-NEPS-TAN-0140,Tanzania,Mwanza,VTA,22,2003-11-13,Male,University,2025-04-23,active,consented,+255869200551,student,secure,good,upper_middle
-NEPS-TAN-0141,Tanzania,Dar es Salaam,Kisutu,11,2015-03-31,Male,Not in school,2026-01-23,active,consented,+255248644109,student,secure,none,middle
-NEPS-TAN-0142,Tanzania,Arusha,VTA,21,2004-12-18,Female,University,2024-01-30,active,declined,+255993838119,employed,moderately_insecure,fair,lower_middle
-NEPS-TAN-0143,Tanzania,Mwanza,Ilboru,15,2010-09-19,Male,SHS,2024-01-05,active,consented,+255530366556,student,moderately_insecure,fair,lower_middle
-NEPS-TAN-0144,Tanzania,Arusha,Kisutu,19,2006-10-07,Female,Not in school,2025-08-04,active,consented,+255865436255,unemployed,severely_insecure,poor,low
-NEPS-TAN-0145,Tanzania,Arusha,Ilboru,23,2002-06-24,Male,University,2025-08-27,active,consented,+255856569565,self-employed,secure,excellent,high
-NEPS-TAN-0146,Tanzania,Mwanza,Moshi,21,2005-03-28,Male,University,2024-11-17,inactive,consented,+255580412754,student,mildly_insecure,fair,middle
-NEPS-TAN-0147,Tanzania,Arusha,St. Augustine,19,2006-10-02,Female,SHS,2025-10-18,active,consented,+255725063062,student,mildly_insecure,none,low
-NEPS-TAN-0148,Tanzania,Arusha,Ilboru,15,2010-08-23,Male,Not in school,2024-02-08,active,consented,+255357277541,student,moderately_insecure,fair,lower_middle
-NEPS-TAN-0149,Tanzania,Mwanza,VTA,14,2012-04-25,Male,SHS,2025-05-13,active,consented,+255317281149,student,severely_insecure,fair,low
-NEPS-TAN-0150,Tanzania,Mwanza,Kisutu,13,2013-01-31,Female,JHS,2026-03-12,active,consented,+255205563528,student,moderately_insecure,good,lower_middle
+NEPS-GHA-0001,Ghana,Tamale,Ghana SHS,20,2006-04-10,Female,Not in school,2026-04-07,active,consented,233300604502,student,secure,good,lower_middle
+NEPS-GHA-0002,Ghana,Sogakope,Presbyterian Boys,18,2007-08-02,Male,University,2026-04-05,withdrawn,consented,233371432881,unemployed,moderately_insecure,fair,lower_middle
+NEPS-GHA-0003,Ghana,Accra,Methodist Boys,14,2012-03-17,Female,SHS,2025-09-24,withdrawn,consented,233775770529,student,secure,good,low
+NEPS-GHA-0004,Ghana,Tamale,Accra Academy,11,2014-08-26,Male,Not in school,2025-07-06,active,consented,233285675980,student,severely_insecure,fair,low
+NEPS-GHA-0005,Ghana,Tamale,Ghana SHS,16,2010-01-14,Other,SHS,2025-01-23,active,consented,233383758720,student,mildly_insecure,good,lower_middle
+NEPS-GHA-0006,Ghana,Sogakope,Presbyterian Boys,17,2008-11-23,Female,Not in school,2025-07-30,active,consented,233538715135,student,moderately_insecure,poor,low
+NEPS-GHA-0007,Ghana,Ho,St. Augustine's,11,2015-02-16,Female,JHS,2024-09-29,active,consented,233802764446,student,severely_insecure,fair,low
+NEPS-GHA-0008,Ghana,Sogakope,St. Augustine's,16,2009-08-11,Female,Not in school,2025-03-20,active,consented,233930661141,self-employed,secure,fair,middle
+NEPS-GHA-0009,Ghana,Ho,Accra Academy,11,2014-11-19,Female,JHS,2025-04-07,active,pending,233486501362,student,mildly_insecure,fair,lower_middle
+NEPS-GHA-0010,Ghana,Tamale,Ghana SHS,14,2011-10-26,Male,JHS,2025-11-22,inactive,pending,233520452650,casual_labor,moderately_insecure,good,middle
+NEPS-GHA-0011,Ghana,Tamale,Accra Academy,15,2011-03-15,Male,SHS,2024-10-27,active,declined,233530190783,casual_labor,severely_insecure,poor,low
+NEPS-GHA-0012,Ghana,Sogakope,Ghana SHS,13,2012-08-18,Male,SHS,2026-02-11,active,consented,233484602384,student,secure,fair,upper_middle
+NEPS-GHA-0013,Ghana,Accra,Presbyterian Boys,24,2001-09-04,Female,Vocational,2024-03-20,active,consented,233441266931,student,mildly_insecure,none,lower_middle
+NEPS-GHA-0014,Ghana,Ho,Methodist Boys,10,2015-08-07,Other,Primary,2024-10-12,withdrawn,consented,233455555531,student,secure,fair,middle
+NEPS-GHA-0015,Ghana,Sogakope,Methodist Boys,13,2012-09-01,Male,JHS,2025-12-18,active,consented,233580424119,not_applicable,moderately_insecure,good,lower_middle
+NEPS-GHA-0016,Ghana,Sogakope,Ghana SHS,17,2009-05-09,Male,Not in school,2024-06-12,active,consented,233350519597,student,secure,poor,lower_middle
+NEPS-GHA-0017,Ghana,Tamale,Ghana SHS,14,2011-10-12,Female,JHS,2025-08-20,active,consented,233300140141,student,severely_insecure,poor,low
+NEPS-GHA-0018,Ghana,Sogakope,Ghana SHS,16,2009-09-30,Male,Not in school,2024-12-26,withdrawn,consented,233654200826,student,secure,fair,middle
+NEPS-GHA-0019,Ghana,Accra,St. Augustine's,13,2013-01-04,Female,JHS,2025-09-22,active,pending,233369042105,student,moderately_insecure,poor,low
+NEPS-GHA-0020,Ghana,Ho,Presbyterian Boys,11,2015-03-01,Male,Not in school,2026-02-21,active,consented,233650139320,student,secure,good,lower_middle
+NEPS-GHA-0021,Ghana,Accra,Accra Academy,13,2012-06-27,Other,JHS,2024-04-29,inactive,consented,233866964667,student,secure,fair,middle
+NEPS-GHA-0022,Ghana,Accra,St. Augustine's,18,2008-02-17,Male,University,2024-11-30,withdrawn,consented,233856783995,self-employed,moderately_insecure,poor,middle
+NEPS-GHA-0023,Ghana,Ho,St. Augustine's,14,2011-07-01,Male,JHS,2026-01-16,active,consented,233418610946,student,mildly_insecure,good,low
+NEPS-GHA-0024,Ghana,Sogakope,St. Augustine's,17,2009-01-28,Male,SHS,2023-12-18,inactive,consented,233674417266,student,mildly_insecure,excellent,upper_middle
+NEPS-GHA-0025,Ghana,Accra,Presbyterian Boys,10,2016-04-07,Female,Primary,2026-02-14,active,consented,233591541578,student,mildly_insecure,good,low
+NEPS-GHA-0026,Ghana,Tamale,Methodist Boys,13,2012-06-20,Female,Not in school,2025-08-20,inactive,consented,233374484941,student,moderately_insecure,poor,lower_middle
+NEPS-GHA-0027,Ghana,Accra,Methodist Boys,10,2016-03-04,Male,Not in school,2024-04-08,active,consented,233610751046,student,moderately_insecure,poor,low
+NEPS-GHA-0028,Ghana,Ho,Presbyterian Boys,13,2013-02-22,Female,JHS,2024-01-17,active,consented,233274539964,student,severely_insecure,none,low
+NEPS-GHA-0029,Ghana,Accra,St. Augustine's,20,2005-09-19,Male,Not in school,2025-03-19,active,declined,233241078352,unemployed,mildly_insecure,excellent,lower_middle
+NEPS-GHA-0030,Ghana,Tamale,Presbyterian Boys,16,2009-12-11,Male,Not in school,2024-04-16,active,consented,233758260221,student,severely_insecure,good,lower_middle
+NEPS-GHA-0031,Ghana,Ho,St. Augustine's,16,2010-05-01,Female,Not in school,2024-06-21,active,consented,233948621833,student,severely_insecure,good,low
+NEPS-GHA-0032,Ghana,Sogakope,St. Augustine's,12,2014-02-26,Male,JHS,2025-02-26,withdrawn,consented,233425681936,student,moderately_insecure,good,lower_middle
+NEPS-GHA-0033,Ghana,Ho,Accra Academy,19,2006-07-06,Female,SHS,2025-06-07,active,consented,233753462378,employed,secure,fair,middle
+NEPS-GHA-0034,Ghana,Tamale,Methodist Boys,23,2003-02-07,Female,SHS,2024-06-13,withdrawn,consented,233876205431,unemployed,secure,excellent,middle
+NEPS-GHA-0035,Ghana,Sogakope,Accra Academy,17,2008-11-13,Female,Not in school,2025-08-26,active,pending,233947229579,student,mildly_insecure,poor,upper_middle
+NEPS-GHA-0036,Ghana,Sogakope,St. Augustine's,18,2008-01-30,Male,Vocational,2023-12-16,withdrawn,consented,233972314530,student,secure,good,upper_middle
+NEPS-GHA-0037,Ghana,Accra,Presbyterian Boys,17,2009-03-16,Female,SHS,2024-04-01,active,consented,233672309605,student,severely_insecure,poor,low
+NEPS-GHA-0038,Ghana,Sogakope,Methodist Boys,13,2013-01-16,Female,SHS,2025-05-24,active,consented,233782624278,student,secure,good,middle
+NEPS-GHA-0039,Ghana,Ho,Methodist Boys,10,2016-02-19,Female,Not in school,2024-01-01,active,consented,233577698143,not_applicable,mildly_insecure,poor,middle
+NEPS-GHA-0040,Ghana,Sogakope,Ghana SHS,23,2002-11-05,Female,University,2024-10-28,active,consented,233929223044,employed,moderately_insecure,good,lower_middle
+NEPS-GHA-0041,Ghana,Accra,Presbyterian Boys,23,2002-10-11,Male,Not in school,2025-12-23,active,pending,233395130056,employed,severely_insecure,poor,low
+NEPS-GHA-0042,Ghana,Accra,Presbyterian Boys,16,2009-12-20,Female,Not in school,2025-09-28,withdrawn,consented,233779196799,student,moderately_insecure,good,middle
+NEPS-GHA-0043,Ghana,Accra,St. Augustine's,13,2012-07-07,Male,JHS,2026-02-21,active,consented,233918825964,student,moderately_insecure,none,lower_middle
+NEPS-GHA-0044,Ghana,Accra,Presbyterian Boys,13,2012-10-09,Female,SHS,2024-05-16,active,consented,233821358005,student,mildly_insecure,none,middle
+NEPS-GHA-0045,Ghana,Accra,St. Augustine's,19,2006-06-25,Male,Vocational,2025-04-13,withdrawn,pending,233844687060,unemployed,secure,poor,middle
+NEPS-GHA-0046,Ghana,Sogakope,Ghana SHS,22,2004-05-16,Female,University,2025-05-12,active,consented,233588896443,unemployed,secure,fair,lower_middle
+NEPS-GHA-0047,Ghana,Tamale,Accra Academy,16,2010-03-07,Female,Not in school,2024-04-11,withdrawn,consented,233546071904,student,moderately_insecure,none,lower_middle
+NEPS-GHA-0048,Ghana,Ho,Presbyterian Boys,14,2011-10-18,Male,JHS,2025-08-26,active,consented,233477403790,student,moderately_insecure,fair,lower_middle
+NEPS-GHA-0049,Ghana,Sogakope,Methodist Boys,24,2001-08-06,Male,University,2024-05-14,active,consented,233711201082,employed,moderately_insecure,fair,low
+NEPS-GHA-0050,Ghana,Ho,Presbyterian Boys,22,2004-05-29,Female,University,2026-01-27,active,declined,233790975123,employed,secure,fair,middle
+NEPS-SIE-0051,Sierra Leone,Bo,Christ the King,21,2004-10-17,Prefer not to say,Not in school,2025-07-29,active,consented,232993070706,student,moderately_insecure,fair,lower_middle
+NEPS-SIE-0052,Sierra Leone,Freetown,Prince of Wales,21,2004-08-09,Male,University,2024-03-15,active,consented,232494539550,student,secure,fair,lower_middle
+NEPS-SIE-0053,Sierra Leone,Bo,Bo Government,18,2008-01-08,Male,University,2024-05-18,active,consented,232255165334,employed,severely_insecure,fair,low
+NEPS-SIE-0054,Sierra Leone,Bo,Bombali,11,2015-05-02,Other,Not in school,2025-03-18,active,consented,232799226355,student,moderately_insecure,fair,lower_middle
+NEPS-SIE-0055,Sierra Leone,Freetown,St. Joseph,19,2006-07-25,Female,Vocational,2025-09-13,active,consented,232994664845,student,severely_insecure,fair,low
+NEPS-SIE-0056,Sierra Leone,Bo,Christ the King,20,2006-02-18,Female,University,2025-08-05,active,consented,232448545713,student,mildly_insecure,fair,low
+NEPS-SIE-0057,Sierra Leone,Freetown,Christ the King,21,2004-10-17,Other,Not in school,2026-02-19,active,consented,232895392488,self-employed,severely_insecure,poor,low
+NEPS-SIE-0058,Sierra Leone,Bo,Bombali,23,2003-03-27,Female,SHS,2026-02-18,active,consented,232632190231,unemployed,secure,none,upper_middle
+NEPS-SIE-0059,Sierra Leone,Makeni,Prince of Wales,18,2007-09-27,Male,University,2025-02-08,inactive,pending,232817615339,student,secure,fair,upper_middle
+NEPS-SIE-0060,Sierra Leone,Bo,Prince of Wales,22,2003-06-28,Other,Not in school,2024-01-12,active,consented,232881594897,student,moderately_insecure,poor,middle
+NEPS-SIE-0061,Sierra Leone,Freetown,Bo Government,17,2008-12-09,Male,Vocational,2025-03-10,inactive,pending,232790661740,student,severely_insecure,fair,lower_middle
+NEPS-SIE-0062,Sierra Leone,Makeni,Christ the King,11,2014-12-25,Female,JHS,2025-08-17,active,consented,232401415220,casual_labor,mildly_insecure,poor,lower_middle
+NEPS-SIE-0063,Sierra Leone,Makeni,St. Joseph,19,2006-09-24,Female,University,2024-07-31,active,consented,232876481264,student,mildly_insecure,good,lower_middle
+NEPS-SIE-0064,Sierra Leone,Makeni,Christ the King,21,2005-03-17,Female,SHS,2025-06-18,active,pending,232735126623,employed,secure,none,lower_middle
+NEPS-SIE-0065,Sierra Leone,Freetown,Christ the King,18,2007-06-10,Male,University,2025-07-27,active,consented,232346574716,employed,mildly_insecure,poor,lower_middle
+NEPS-SIE-0066,Sierra Leone,Bo,Bombali,22,2003-11-07,Female,University,2025-05-19,inactive,consented,232359553112,employed,severely_insecure,fair,low
+NEPS-SIE-0067,Sierra Leone,Freetown,Christ the King,17,2008-12-11,Female,SHS,2025-05-27,active,consented,232641066404,student,mildly_insecure,fair,lower_middle
+NEPS-SIE-0068,Sierra Leone,Bo,Prince of Wales,21,2004-10-07,Male,Not in school,2024-05-10,inactive,consented,232833701411,student,severely_insecure,none,low
+NEPS-SIE-0069,Sierra Leone,Makeni,Bo Government,23,2002-10-25,Male,Not in school,2026-01-20,active,declined,232563527356,employed,moderately_insecure,poor,lower_middle
+NEPS-SIE-0070,Sierra Leone,Freetown,Christ the King,20,2006-04-26,Female,Not in school,2025-05-31,withdrawn,consented,232273466219,self-employed,moderately_insecure,fair,low
+NEPS-SIE-0071,Sierra Leone,Bo,Christ the King,13,2013-04-19,Male,JHS,2025-02-12,active,consented,232260257560,student,severely_insecure,fair,low
+NEPS-SIE-0072,Sierra Leone,Makeni,St. Joseph,15,2010-10-28,Female,SHS,2025-12-04,active,consented,232734366139,student,mildly_insecure,fair,middle
+NEPS-SIE-0073,Sierra Leone,Makeni,Christ the King,13,2012-10-11,Female,Not in school,2024-07-18,active,consented,232571048258,student,secure,none,middle
+NEPS-SIE-0074,Sierra Leone,Bo,Prince of Wales,20,2005-11-01,Male,Vocational,2024-05-26,active,consented,232950845198,unemployed,secure,fair,middle
+NEPS-SIE-0075,Sierra Leone,Freetown,Bombali,23,2002-07-05,Female,University,2025-03-23,active,pending,232507298630,employed,mildly_insecure,poor,middle
+NEPS-SIE-0076,Sierra Leone,Freetown,Christ the King,22,2003-12-09,Female,Not in school,2025-09-20,active,pending,232894002948,employed,moderately_insecure,poor,lower_middle
+NEPS-SIE-0077,Sierra Leone,Makeni,Bombali,22,2003-10-25,Male,Not in school,2026-03-29,active,consented,232592836532,unemployed,secure,fair,lower_middle
+NEPS-SIE-0078,Sierra Leone,Freetown,St. Joseph,24,2002-01-19,Female,University,2024-01-03,withdrawn,consented,232280852074,self-employed,severely_insecure,none,middle
+NEPS-SIE-0079,Sierra Leone,Makeni,Christ the King,23,2002-06-26,Male,University,2024-04-21,active,consented,232595765839,student,severely_insecure,poor,low
+NEPS-SIE-0080,Sierra Leone,Freetown,Bo Government,19,2006-11-23,Other,Vocational,2024-01-11,active,consented,232895411453,student,moderately_insecure,poor,lower_middle
+NEPS-SIE-0081,Sierra Leone,Bo,Christ the King,24,2001-06-14,Male,SHS,2025-06-27,active,consented,232617305280,student,secure,good,lower_middle
+NEPS-SIE-0082,Sierra Leone,Makeni,Christ the King,20,2005-06-15,Female,University,2024-10-26,active,declined,232235128844,unemployed,secure,poor,lower_middle
+NEPS-SIE-0083,Sierra Leone,Freetown,Bo Government,13,2012-10-20,Prefer not to say,JHS,2025-02-01,active,consented,232403805386,not_applicable,secure,poor,low
+NEPS-SIE-0084,Sierra Leone,Freetown,Bombali,11,2014-06-30,Male,Primary,2025-09-27,active,consented,232795076080,student,secure,none,lower_middle
+NEPS-SIE-0085,Sierra Leone,Makeni,Prince of Wales,13,2013-02-05,Prefer not to say,Not in school,2025-05-31,active,consented,232318032515,student,moderately_insecure,fair,low
+NEPS-SIE-0086,Sierra Leone,Bo,Christ the King,12,2014-05-28,Female,JHS,2025-05-01,active,consented,232711365210,student,moderately_insecure,fair,low
+NEPS-SIE-0087,Sierra Leone,Freetown,Bo Government,18,2007-08-07,Female,SHS,2026-01-11,active,consented,232233447745,student,moderately_insecure,poor,lower_middle
+NEPS-SIE-0088,Sierra Leone,Makeni,Bombali,23,2002-11-14,Female,University,2025-02-20,active,consented,232879760958,employed,severely_insecure,fair,low
+NEPS-SIE-0089,Sierra Leone,Makeni,St. Joseph,21,2004-12-22,Female,University,2025-04-07,withdrawn,consented,232791991695,employed,moderately_insecure,poor,low
+NEPS-SIE-0090,Sierra Leone,Bo,Prince of Wales,16,2009-10-17,Male,SHS,2025-09-11,active,declined,232937468465,unemployed,mildly_insecure,poor,lower_middle
+NEPS-SIE-0091,Sierra Leone,Bo,Bo Government,11,2015-04-22,Prefer not to say,Primary,2026-01-27,active,consented,232641102414,student,mildly_insecure,good,lower_middle
+NEPS-SIE-0092,Sierra Leone,Freetown,Christ the King,23,2003-05-12,Male,Not in school,2025-07-12,active,pending,232594665673,student,moderately_insecure,fair,lower_middle
+NEPS-SIE-0093,Sierra Leone,Bo,Prince of Wales,19,2007-02-11,Female,Not in school,2024-01-27,active,consented,232944609017,employed,moderately_insecure,poor,lower_middle
+NEPS-SIE-0094,Sierra Leone,Freetown,Bombali,12,2014-01-16,Female,JHS,2024-05-13,active,consented,232232917811,not_applicable,moderately_insecure,fair,low
+NEPS-SIE-0095,Sierra Leone,Freetown,Prince of Wales,13,2012-11-24,Female,Not in school,2025-02-27,withdrawn,consented,232863398699,student,mildly_insecure,fair,lower_middle
+NEPS-SIE-0096,Sierra Leone,Bo,Bombali,14,2011-10-22,Male,JHS,2024-06-24,active,consented,232836873048,student,mildly_insecure,fair,lower_middle
+NEPS-SIE-0097,Sierra Leone,Freetown,Bo Government,20,2005-12-31,Female,SHS,2026-03-17,withdrawn,consented,232328832213,casual_labor,secure,fair,middle
+NEPS-SIE-0098,Sierra Leone,Freetown,Bo Government,21,2004-10-29,Male,Not in school,2025-11-04,active,consented,232668387228,employed,secure,poor,middle
+NEPS-SIE-0099,Sierra Leone,Bo,Christ the King,24,2002-04-29,Male,University,2025-06-16,active,pending,232863706947,employed,moderately_insecure,poor,lower_middle
+NEPS-SIE-0100,Sierra Leone,Makeni,Prince of Wales,11,2014-10-24,Female,Not in school,2023-12-20,active,consented,232282011731,student,secure,good,middle
+NEPS-TAN-0101,Tanzania,Dar es Salaam,Ilboru,18,2007-09-18,Male,Not in school,2025-10-16,active,consented,255846820987,student,severely_insecure,none,low
+NEPS-TAN-0102,Tanzania,Arusha,Kisutu,12,2013-07-18,Female,Not in school,2024-12-13,inactive,consented,255873469560,student,moderately_insecure,poor,lower_middle
+NEPS-TAN-0103,Tanzania,Dar es Salaam,Ilboru,17,2009-05-02,Male,Vocational,2025-01-07,active,consented,255508246619,student,mildly_insecure,good,lower_middle
+NEPS-TAN-0104,Tanzania,Arusha,VTA,19,2006-08-06,Other,University,2024-11-29,active,consented,255849620068,employed,severely_insecure,poor,middle
+NEPS-TAN-0105,Tanzania,Mwanza,VTA,12,2014-05-04,Male,JHS,2025-01-26,active,consented,255671825556,not_applicable,secure,poor,upper_middle
+NEPS-TAN-0106,Tanzania,Mwanza,St. Augustine,19,2007-03-17,Female,Vocational,2025-04-25,active,consented,255301474984,student,secure,fair,middle
+NEPS-TAN-0107,Tanzania,Mwanza,St. Augustine,14,2012-01-27,Female,JHS,2024-04-21,inactive,consented,255904433388,casual_labor,moderately_insecure,fair,low
+NEPS-TAN-0108,Tanzania,Mwanza,Ilboru,12,2013-08-04,Female,SHS,2024-05-07,withdrawn,consented,255935958147,student,moderately_insecure,poor,low
+NEPS-TAN-0109,Tanzania,Dar es Salaam,Moshi,20,2005-06-28,Female,University,2025-02-23,active,declined,255366371119,student,mildly_insecure,none,lower_middle
+NEPS-TAN-0110,Tanzania,Dar es Salaam,VTA,23,2003-04-17,Female,University,2024-11-29,active,consented,255374211616,unemployed,severely_insecure,good,low
+NEPS-TAN-0111,Tanzania,Dar es Salaam,Moshi,22,2004-03-14,Male,University,2024-04-24,active,consented,255773390109,employed,mildly_insecure,fair,middle
+NEPS-TAN-0112,Tanzania,Dar es Salaam,VTA,22,2003-10-10,Female,Not in school,2023-12-29,active,consented,255374008639,unemployed,mildly_insecure,fair,middle
+NEPS-TAN-0113,Tanzania,Arusha,VTA,12,2014-01-27,Female,SHS,2026-03-10,active,consented,255492907427,not_applicable,moderately_insecure,good,lower_middle
+NEPS-TAN-0114,Tanzania,Arusha,Kisutu,12,2013-10-24,Male,JHS,2026-01-29,active,consented,255287623171,student,moderately_insecure,fair,low
+NEPS-TAN-0115,Tanzania,Arusha,St. Augustine,10,2015-12-23,Female,Primary,2026-01-21,active,consented,255957563699,student,severely_insecure,fair,low
+NEPS-TAN-0116,Tanzania,Dar es Salaam,Kisutu,19,2007-06-04,Female,Vocational,2026-02-10,withdrawn,consented,255330833665,student,secure,none,high
+NEPS-TAN-0117,Tanzania,Arusha,Ilboru,16,2009-07-13,Female,Vocational,2024-02-10,active,consented,255512750915,student,moderately_insecure,fair,lower_middle
+NEPS-TAN-0118,Tanzania,Mwanza,Ilboru,19,2006-12-08,Prefer not to say,University,2025-08-29,active,consented,255745055605,student,moderately_insecure,fair,lower_middle
+NEPS-TAN-0119,Tanzania,Mwanza,Moshi,16,2009-10-08,Male,Not in school,2026-03-19,active,consented,255824813934,self-employed,mildly_insecure,excellent,lower_middle
+NEPS-TAN-0120,Tanzania,Mwanza,St. Augustine,12,2014-05-13,Female,JHS,2025-05-07,active,pending,255267753684,student,secure,poor,lower_middle
+NEPS-TAN-0121,Tanzania,Dar es Salaam,Moshi,10,2016-01-05,Prefer not to say,Primary,2025-10-08,active,consented,255894604127,student,secure,none,upper_middle
+NEPS-TAN-0122,Tanzania,Mwanza,St. Augustine,15,2011-05-12,Female,University,2024-06-30,active,declined,255732794158,student,secure,none,middle
+NEPS-TAN-0123,Tanzania,Arusha,Moshi,15,2010-09-13,Female,Not in school,2025-08-02,active,consented,255909656613,unemployed,secure,poor,low
+NEPS-TAN-0124,Tanzania,Dar es Salaam,St. Augustine,17,2008-08-01,Male,Not in school,2024-04-28,inactive,consented,255261587757,student,secure,excellent,middle
+NEPS-TAN-0125,Tanzania,Arusha,Moshi,15,2010-09-16,Female,Vocational,2024-02-02,active,consented,255892738367,student,secure,none,lower_middle
+NEPS-TAN-0126,Tanzania,Arusha,Kisutu,16,2009-08-19,Female,Not in school,2026-03-30,active,consented,255897460535,student,severely_insecure,fair,lower_middle
+NEPS-TAN-0127,Tanzania,Arusha,Kisutu,11,2015-05-22,Female,Not in school,2024-04-09,active,consented,255945156039,student,moderately_insecure,good,middle
+NEPS-TAN-0128,Tanzania,Mwanza,VTA,11,2015-03-27,Female,Primary,2026-02-16,active,consented,255269727803,not_applicable,mildly_insecure,good,lower_middle
+NEPS-TAN-0129,Tanzania,Dar es Salaam,Moshi,14,2012-01-03,Male,JHS,2025-11-22,active,consented,255730452018,not_applicable,moderately_insecure,poor,lower_middle
+NEPS-TAN-0130,Tanzania,Arusha,VTA,18,2007-08-17,Male,University,2025-04-20,active,consented,255641087900,casual_labor,secure,none,lower_middle
+NEPS-TAN-0131,Tanzania,Arusha,VTA,11,2015-04-01,Female,Not in school,2025-06-12,active,consented,255338548086,student,moderately_insecure,fair,lower_middle
+NEPS-TAN-0132,Tanzania,Arusha,Kisutu,24,2002-05-10,Male,Not in school,2024-01-02,inactive,pending,255284675178,student,secure,good,upper_middle
+NEPS-TAN-0133,Tanzania,Mwanza,Moshi,20,2005-08-28,Other,University,2025-07-25,active,consented,255973773537,student,secure,fair,upper_middle
+NEPS-TAN-0134,Tanzania,Dar es Salaam,St. Augustine,23,2002-08-23,Female,Vocational,2026-03-21,withdrawn,consented,255886111573,student,secure,poor,low
+NEPS-TAN-0135,Tanzania,Arusha,St. Augustine,24,2001-07-21,Male,Not in school,2024-10-21,active,consented,255672022811,casual_labor,mildly_insecure,poor,middle
+NEPS-TAN-0136,Tanzania,Dar es Salaam,Moshi,17,2009-02-21,Prefer not to say,Not in school,2025-05-19,active,consented,255803068400,student,moderately_insecure,poor,lower_middle
+NEPS-TAN-0137,Tanzania,Arusha,VTA,13,2012-10-09,Female,JHS,2025-12-28,active,pending,255371476207,student,secure,fair,middle
+NEPS-TAN-0138,Tanzania,Dar es Salaam,VTA,21,2004-12-28,Male,University,2025-10-20,inactive,consented,255458480413,employed,moderately_insecure,poor,low
+NEPS-TAN-0139,Tanzania,Mwanza,Moshi,15,2011-05-12,Male,SHS,2026-03-12,active,consented,255483975609,student,moderately_insecure,poor,middle
+NEPS-TAN-0140,Tanzania,Mwanza,VTA,22,2003-11-13,Male,University,2025-04-23,active,consented,255869200551,student,secure,good,upper_middle
+NEPS-TAN-0141,Tanzania,Dar es Salaam,Kisutu,11,2015-03-31,Male,Not in school,2026-01-23,active,consented,255248644109,student,secure,none,middle
+NEPS-TAN-0142,Tanzania,Arusha,VTA,21,2004-12-18,Female,University,2024-01-30,active,declined,255993838119,employed,moderately_insecure,fair,lower_middle
+NEPS-TAN-0143,Tanzania,Mwanza,Ilboru,15,2010-09-19,Male,SHS,2024-01-05,active,consented,255530366556,student,moderately_insecure,fair,lower_middle
+NEPS-TAN-0144,Tanzania,Arusha,Kisutu,19,2006-10-07,Female,Not in school,2025-08-04,active,consented,255865436255,unemployed,severely_insecure,poor,low
+NEPS-TAN-0145,Tanzania,Arusha,Ilboru,23,2002-06-24,Male,University,2025-08-27,active,consented,255856569565,self-employed,secure,excellent,high
+NEPS-TAN-0146,Tanzania,Mwanza,Moshi,21,2005-03-28,Male,University,2024-11-17,inactive,consented,255580412754,student,mildly_insecure,fair,middle
+NEPS-TAN-0147,Tanzania,Arusha,St. Augustine,19,2006-10-02,Female,SHS,2025-10-18,active,consented,255725063062,student,mildly_insecure,none,low
+NEPS-TAN-0148,Tanzania,Arusha,Ilboru,15,2010-08-23,Male,Not in school,2024-02-08,active,consented,255357277541,student,moderately_insecure,fair,lower_middle
+NEPS-TAN-0149,Tanzania,Mwanza,VTA,14,2012-04-25,Male,SHS,2025-05-13,active,consented,255317281149,student,severely_insecure,fair,low
+NEPS-TAN-0150,Tanzania,Mwanza,Kisutu,13,2013-01-31,Female,JHS,2026-03-12,active,consented,255205563528,student,moderately_insecure,good,lower_middle
