@@ -90,15 +90,26 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@master
-        continue-on-error: true
+      - name: Run Trivy vulnerability scanner (image)
+        if: github.event_name == 'push'
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
           image-ref: ${{ env.IMAGE }}:${{ github.sha }}
-          format: 'sarif'
-          output: 'trivy-results.sarif'
+          format: 'table'
           severity: 'CRITICAL,HIGH'
           exit-code: '0'
+          ignore-unfixed: true
+
+      - name: Run Trivy vulnerability scanner (filesystem PR)
+        if: github.event_name == 'pull_request'
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          format: 'table'
+          severity: 'CRITICAL,HIGH'
+          exit-code: '0'
+
 
 
       - name: Push to GHCR
@@ -113,6 +124,36 @@ jobs:
             ${{ github.ref == 'refs/heads/main' && format('{0}:latest', env.IMAGE) || '' }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+  deploy-staging:
+    needs: build
+    if: github.ref == 'refs/heads/staging' && github.event_name == 'push' && vars.STAGING_DEPLOY_HOST != ''
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+      - name: Deploy to STAGING server via SSH
+        uses: appleboy/ssh-action@v1.2.5
+        with:
+          host: ${{ vars.STAGING_DEPLOY_HOST }}
+          username: ${{ secrets.STAGING_DEPLOY_USER }}
+          key: ${{ secrets.STAGING_DEPLOY_KEY }}
+          script: |
+            set -euo pipefail
+            cd /opt/neps-infrastructure
+            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+            export COMPOSE_PROJECT_NAME=neps-staging
+            export IMAGE_TAG=${{ github.sha }}
+            docker compose -f docker-compose.yml \
+                          -f docker-compose.prod.yml \
+                          -f docker-compose.staging.yml \
+                          pull neps-ml-ai
+            docker compose -f docker-compose.yml \
+                          -f docker-compose.prod.yml \
+                          -f docker-compose.staging.yml \
+                          up -d --no-deps neps-ml-ai
+            docker image prune -f
+            echo "Staging-deployed neps-ml-ai:${{ github.sha }} at $(date)"
+            echo "${{ github.sha }},neps-ml-ai,staging,$(date -u +"%Y-%m-%dT%H:%M:%SZ")" >> .deployment-history
 
   deploy:
     needs: build
