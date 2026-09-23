@@ -7,7 +7,7 @@ Rules:
   on its own inputs and scores ~0.97 with a depth-3 tree.
 """
 import pandas as pd
-from sklearn.metrics import accuracy_score, f1_score
+from sklearn.metrics import accuracy_score, f1_score, mean_absolute_error, r2_score
 from sklearn.model_selection import GroupShuffleSplit
 
 from app.ml import schema
@@ -27,14 +27,23 @@ def classification_metrics(y_true, y_pred):
     }
 
 
-def metrics_report(test_frame, y_true, y_pred):
+def regression_metrics(y_true, y_pred):
+    return {
+        "n": int(len(y_true)),
+        "mae": round(float(mean_absolute_error(y_true, y_pred)), 4),
+        # r2 is undefined for a constant y_true (tiny fairness cells)
+        "r2": round(float(r2_score(y_true, y_pred)), 4) if len(set(map(float, y_true))) > 1 else None,
+    }
+
+
+def metrics_report(test_frame, y_true, y_pred, metric=classification_metrics):
     """Overall metrics plus one entry per value of each fairness group."""
-    report = {"overall": classification_metrics(y_true, y_pred)}
+    report = {"overall": metric(y_true, y_pred)}
     y_true = pd.Series(list(y_true), index=test_frame.index)
     y_pred = pd.Series(list(y_pred), index=test_frame.index)
     for group in schema.FAIRNESS_GROUPS:
         report[group] = {
-            str(val): classification_metrics(y_true[idx], y_pred[idx])
+            str(val): metric(y_true[idx], y_pred[idx])
             for val, idx in test_frame.groupby(group).groups.items()
         }
     return report

@@ -73,7 +73,30 @@ four weak tests. Open: one-hot columns must be reindexed to meta["features"]
 when the predict path lands (Phase 5); per-group macro-F1 averages over the
 classes present in that group.
 
+## Phase 3: Trajectory and explainability (2026-09-23)
+
+| Path | Change |
+|---|---|
+| app/ml/features.py | Lags and next-month targets now computed on a full participant x month grid, so a missing month yields NaN instead of the wrong month (real data has ~85% completion). add_next_month_targets() |
+| app/ml/evaluate.py | regression_metrics (MAE, R2, R2 None on constant groups); metrics_report takes a metric function |
+| app/ml/train.py | train_trajectory() for next-month depression and anxiety; trend_label() Improving / Stable / Deteriorating at TREND_THRESHOLD=2.0; guard that targets are higher-is-worse scores; main() trains all three models |
+| app/ml/explain.py | SHAP TreeExplainer contributions for the predicted class, share of total |SHAP|, plain-language labels and sentences; binary and multiclass models |
+| tests/conftest.py | Session-scoped data, frame, classifier fixtures (suite 42s to 12s) |
+| tests/test_ml_explain.py | 43 tests |
+
+Baseline on mock v0.3.0: trajectory R2 0.13 (depression) and 0.07 (anxiety),
+trend accuracy 0.50. Expected: mock scores are independent month to month.
+Pipeline validation only.
+
+Reviewed by two subagents. Fixed: positional shift bridging missing months
+(found by a test), binary-class SHAP crash, class index read from meta rather
+than the model, NaN predictions silently labelled Stable, R2 NaN on constant
+fairness cells, vacuous HIGH-risk test, duplicate end-to-end test. Open:
+TREND_THRESHOLD is a placeholder pending clinical minimal important difference;
+share is a log-odds attribution, not a probability, and the sentence wording
+should be checked with WP6.
+
 ## Not done yet
 
-Phase 3 onward: trajectory regression, SHAP explanations, fairness metrics,
-alerts, endpoints.
+Phase 4 onward: fairness metrics (demographic parity, equal opportunity),
+early-warning alerts, intervention categories, endpoints.

@@ -9,17 +9,6 @@ import pandas as pd
 import pytest
 
 from app.ml import evaluate, features, schema, train
-from app.ml.loader import load_datasets
-
-
-@pytest.fixture(scope="module")
-def data():
-    return load_datasets()
-
-
-@pytest.fixture(scope="module")
-def frame(data):
-    return features.build_training_frame(data)
 
 
 # ─── FEATURES ──────────────────────────────────────────────────────────────────
@@ -155,20 +144,15 @@ class TestMetrics:
 
 # ─── TRAIN + REGISTRY ──────────────────────────────────────────────────────────
 
-@pytest.fixture(scope="module")
-def trained(frame):
-    return train.train_risk_classifier(frame)
-
-
 class TestTrain:
-    def test_model_predicts_known_classes(self, trained, frame):
-        model, meta = trained
+    def test_model_predicts_known_classes(self, classifier, frame):
+        model, meta = classifier
         assert set(meta["classes"]) <= set(schema.RISK_FLAG_TIERS)
         pred = model.predict(frame[meta["features"]].head(5))
         assert set(pred) <= set(schema.RISK_FLAG_TIERS)
 
-    def test_meta_is_complete(self, trained):
-        _, meta = trained
+    def test_meta_is_complete(self, classifier):
+        _, meta = classifier
         for k in ("name", "target", "classes", "features", "data_version", "n_train",
                   "n_test", "seed", "metrics", "trained_at", "sklearn", "pandas"):
             assert k in meta, k
@@ -176,20 +160,20 @@ class TestTrain:
         assert meta["metrics"]["overall"]["n"] == meta["n_test"]
         assert set(meta["metrics"]) == {"overall", *schema.FAIRNESS_GROUPS}
 
-    def test_beats_majority_baseline(self, trained):
+    def test_beats_majority_baseline(self, classifier):
         # mock risk_flag is a threshold on its inputs; anything below ~0.92 (LOW share) is broken
-        _, meta = trained
+        _, meta = classifier
         assert meta["metrics"]["overall"]["accuracy"] > 0.92
         assert meta["metrics"]["overall"]["macro_f1"] > 0.5
 
-    def test_deterministic(self, frame, trained):
+    def test_deterministic(self, frame, classifier):
         _, meta2 = train.train_risk_classifier(frame)
-        assert meta2["metrics"] == trained[1]["metrics"]
+        assert meta2["metrics"] == classifier[1]["metrics"]
 
 
 class TestRegistry:
-    def test_save_and_load_roundtrip(self, trained, frame, tmp_path):
-        model, meta = trained
+    def test_save_and_load_roundtrip(self, classifier, frame, tmp_path):
+        model, meta = classifier
         out = train.save_model(model, meta, models_dir=tmp_path)
         assert (out / "model.pkl").exists() and (out / "meta.json").exists()
         assert out.parent.name == "risk_classifier"
@@ -198,8 +182,8 @@ class TestRegistry:
         X = frame[meta["features"]].head(20)
         assert list(loaded.predict(X)) == list(model.predict(X))
 
-    def test_load_latest_version(self, trained, tmp_path):
-        model, meta = trained
+    def test_load_latest_version(self, classifier, tmp_path):
+        model, meta = classifier
         old = dict(meta, trained_at="2020-01-01T00:00:00+00:00")
         train.save_model(model, old, models_dir=tmp_path)
         train.save_model(model, meta, models_dir=tmp_path)
@@ -212,14 +196,9 @@ class TestRegistry:
         with pytest.raises(FileNotFoundError, match="no saved versions"):
             train.load_model("risk_classifier", models_dir=tmp_path)
 
-    def test_never_overwrites_a_version(self, trained, tmp_path):
-        model, meta = trained
+    def test_never_overwrites_a_version(self, classifier, tmp_path):
+        model, meta = classifier
         train.save_model(model, meta, models_dir=tmp_path)
         with pytest.raises(FileExistsError):
             train.save_model(model, meta, models_dir=tmp_path)
 
-    def test_main_runs_end_to_end(self, tmp_path, monkeypatch, capsys):
-        monkeypatch.setattr(train, "MODELS_DIR", tmp_path)
-        train.main()
-        assert "saved" in capsys.readouterr().out
-        assert (tmp_path / "risk_classifier").exists()

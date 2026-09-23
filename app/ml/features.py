@@ -7,6 +7,8 @@ per (participant_id, month) with:
   - temporal features per score: lag1..3, delta1
   - one-hot DEMOGRAPHICS
 Early months have NaN lags; HistGradientBoosting handles NaN natively.
+Shifts are computed on a full participant x month grid, so a missing month
+(real data has ~85% completion) yields NaN rather than the wrong month.
 """
 import pandas as pd
 
@@ -20,19 +22,33 @@ KEYS = ["participant_id", "month"]
 NON_FEATURE = KEYS + [TARGET, "survey_date", "requires_follow_up"] + schema.FAIRNESS_GROUPS
 
 
+def _shifted(df, cols, periods):
+    """Values of cols shifted by `periods` calendar months within participant.
+
+    Works on the full participant x month grid so gaps are not bridged.
+    Returns a frame indexed like the sorted input.
+    """
+    grid = pd.MultiIndex.from_product(
+        [df["participant_id"].unique(), list(schema.MONTHS)], names=KEYS)
+    full = df.set_index(KEYS)[cols].reindex(grid)
+    shifted = full.groupby(level="participant_id", sort=False).shift(periods)
+    return shifted.reindex(pd.MultiIndex.from_frame(df[KEYS])).reset_index(drop=True)
+
+
 def monthly_features(monthly):
     """Add lag1..3 and month-over-month delta per score, per participant.
 
     No rolling mean: with the lags present it is a linear combination.
     """
     df = monthly.sort_values(KEYS).reset_index(drop=True)
-    g = df.groupby("participant_id", sort=False)
+    cols = list(schema.MONTHLY_SCORES)
     new = {}
-    for col in schema.MONTHLY_SCORES:
-        s = g[col]
-        for k in LAGS:
-            new[f"{col}_lag{k}"] = s.shift(k)
-        new[f"{col}_delta1"] = df[col] - s.shift(1)
+    for k in LAGS:
+        lag = _shifted(df, cols, k)
+        for col in cols:
+            new[f"{col}_lag{k}"] = lag[col]
+    for col in cols:
+        new[f"{col}_delta1"] = df[col] - new[f"{col}_lag1"]
     return pd.concat([df, pd.DataFrame(new)], axis=1)
 
 
@@ -58,5 +74,18 @@ def build_training_frame(datasets):
     return monthly[keep].merge(demo, on="participant_id", how="left", validate="m:1")
 
 
+def add_next_month_targets(frame, cols):
+    """Add {col}_next = the participant's value of col one month later.
+
+    Rows with no following month (month 24) are dropped. Used by the
+    trajectory regressors; the resulting columns are targets, not features.
+    """
+    df = frame.sort_values(KEYS).reset_index(drop=True)
+    nxt = _shifted(df, list(cols), -1)
+    for col in cols:
+        df[f"{col}_next"] = nxt[col]
+    return df.dropna(subset=[f"{c}_next" for c in cols]).reset_index(drop=True)
+
+
 def feature_columns(frame):
-    return [c for c in frame.columns if c not in NON_FEATURE]
+    return [c for c in frame.columns if c not in NON_FEATURE and not c.endswith("_next")]

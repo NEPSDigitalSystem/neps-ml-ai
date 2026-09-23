@@ -67,10 +67,10 @@ data source (csv | redcap)
 1. Schema contract and validate() (app/ml/schema.py) DONE
 2. Loader with csv backend (app/ml/loader.py) DONE; redcap backend in step 8
 3. Feature functions and merge (app/ml/features.py) DONE
-4. Baselines: risk classifier DONE; trajectory regression and text features next (app/ml/train.py)
+4. Baselines: risk classifier DONE; trajectory regression DONE; text features later (app/ml/train.py)
 5. Evaluation harness with participant splits and fairness table (app/ml/evaluate.py) DONE
-6. SHAP explanations in WP6 format (app/ml/explain.py)
-7. Model registry: joblib + metadata JSON per model
+6. SHAP explanations in WP6 format (app/ml/explain.py) DONE, wording to confirm with WP6
+7. Model registry: joblib + metadata JSON per model DONE
 8. API endpoints in main.py
 
 Deferred until real data: transformer fine-tuning, LSTM or temporal
