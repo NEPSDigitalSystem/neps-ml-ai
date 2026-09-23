@@ -54,6 +54,26 @@ TypeError leak on string scores, null categoricals passing, "None" NA sentinel,
 two doc contradictions, weak assertions. Remaining: a missing substance_use
 column raises KeyError from the loader rather than SchemaError (accepted).
 
+## Phase 2: Features and first model (2026-09-23)
+
+| Path | Change |
+|---|---|
+| app/ml/features.py | lag1..3 and delta1 per score per participant, one-hot demographics, merge to training frame, feature_columns(). Rolling mean dropped after review: linear combination of the lags |
+| app/ml/evaluate.py | participant-level GroupShuffleSplit, accuracy and macro-F1, breakdown by country and gender |
+| app/ml/train.py | HistGradientBoostingClassifier (balanced) on risk_flag; registry models/<name>/<version>/{model.pkl, meta.json}; `python -m app.ml.train` |
+| tests/test_ml_train.py | 37 tests: feature correctness, participant isolation, metrics slicing, registry round-trip and collision |
+| .gitignore | models/*/ (versioned registry output is reproducible, not committed) |
+
+Baseline on mock v0.3.0, 720 test rows: accuracy 0.98, macro-F1 0.65 (CRITICAL
+has 9 rows total). Pipeline validation only.
+
+Reviewed by two subagents. Fixed: default-arg bug that wrote test output into
+the real registry, redundant rolling feature, dead argv, empty-registry error,
+four weak tests. Open: one-hot columns must be reindexed to meta["features"]
+when the predict path lands (Phase 5); per-group macro-F1 averages over the
+classes present in that group.
+
 ## Not done yet
 
-Phase 2 onward: features, models, evaluation, explainability, endpoints.
+Phase 3 onward: trajectory regression, SHAP explanations, fairness metrics,
+alerts, endpoints.

@@ -216,3 +216,6 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# ML model registry (versioned, reproducible from data/raw via python -m app.ml.train)
+models/*/

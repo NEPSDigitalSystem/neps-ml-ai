@@ -64,11 +64,11 @@ data source (csv | redcap)
 
 ## Roadmap
 
-1. Schema contract and validate() (app/ml/schema.py)
-2. Loader with csv and redcap backends (app/ml/loader.py)
-3. Feature functions and merge (app/ml/features.py)
-4. Baselines: risk classifier, trajectory regression, reuse text models (app/ml/train.py)
-5. Evaluation harness with participant splits and fairness table (app/ml/evaluate.py)
+1. Schema contract and validate() (app/ml/schema.py) DONE
+2. Loader with csv backend (app/ml/loader.py) DONE; redcap backend in step 8
+3. Feature functions and merge (app/ml/features.py) DONE
+4. Baselines: risk classifier DONE; trajectory regression and text features next (app/ml/train.py)
+5. Evaluation harness with participant splits and fairness table (app/ml/evaluate.py) DONE
 6. SHAP explanations in WP6 format (app/ml/explain.py)
 7. Model registry: joblib + metadata JSON per model
 8. API endpoints in main.py
@@ -87,6 +87,7 @@ version compared against the mock baseline in the same table.
 
 - Frank (ETL): exact REDCap export field names; is risk_flag 2 or 4 tiers in production?
 - Backend intern: response shape of the /explain endpoint.
+- Predict path (Phase 5): reindex incoming one-hot columns to meta["features"] so unseen or missing categories cannot silently shift columns.
 - Study leads: are withdrawn or non-consented participants excluded from training?
 
 ## Ethics rules (from Yasmine's proposal)
