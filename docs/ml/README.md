@@ -11,11 +11,11 @@ Status: setup phase, no model code yet.
 Core (named in the roster abstract and assessment brief):
 1. Predictive models for stress and risk trajectories over time
 2. Explainable AI on those models (SHAP, plain-language contributions)
-3. Bias evaluation by country, gender and site
+3. Bias evaluation by country, gender and site DONE (app/ml/fairness.py)
 4. Combine numeric data with Yasmine's text outputs as features
 
 Secondary (from the proposal's use cases):
-5. Early warning alerts and intervention category recommendation
+5. Early warning alerts and intervention category recommendation DONE (app/ml/alerts.py)
 6. Psychosocial pattern clustering
 7. Cross-country comparative analytics
 8. Dropout and retention prediction (blocked: no withdrawal dates in mock)

@@ -50,7 +50,7 @@ them from the four core files.
 0. Dataset has at least one row.
 1. Key columns present, non-null, unique per dataset.
 2. All MONTHLY_SCORES columns present, numeric, non-null, within range. Non-numeric strings such as "N/A" fail as nulls.
-3. Categorical targets non-null and only take values listed in NLP_TARGETS and RISK_FLAG_TIERS. Case-sensitive.
+3. Categoricals non-null and only take listed values: NLP_TARGETS, RISK_FLAG_TIERS, and suicidality_screening (a safety-rule input for alerts). Case-sensitive.
 4. Every participant_id in the other three files exists in participants.
 5. month numeric and in 1..24, wave_month in {6, 12, 18, 24}.
 

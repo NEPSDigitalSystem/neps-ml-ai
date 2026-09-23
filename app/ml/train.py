@@ -24,7 +24,7 @@ import pandas as pd
 import sklearn
 from sklearn.ensemble import HistGradientBoostingClassifier, HistGradientBoostingRegressor
 
-from app.ml import evaluate, features
+from app.ml import evaluate, fairness, features
 from app.ml.loader import load_datasets
 
 MODELS_DIR = Path(__file__).resolve().parents[2] / "models"
@@ -66,6 +66,7 @@ def train_risk_classifier(frame, seed=42):
         "n_test": int(len(test)),
         "seed": seed,
         "metrics": evaluate.metrics_report(test, test[features.TARGET], pred),
+        "fairness": fairness.fairness_report(test, test[features.TARGET], pred),
         "trained_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         **_versions(),
     }

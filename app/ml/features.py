@@ -19,7 +19,7 @@ TEMPORAL_SUFFIXES = tuple(f"_lag{k}" for k in LAGS) + ("_delta1",)
 TARGET = "risk_flag"
 KEYS = ["participant_id", "month"]
 # Kept in the frame but never fed to a model.
-NON_FEATURE = KEYS + [TARGET, "survey_date", "requires_follow_up"] + schema.FAIRNESS_GROUPS
+NON_FEATURE = KEYS + [TARGET, "survey_date", "requires_follow_up", "suicidality_screening"] + schema.FAIRNESS_GROUPS
 
 
 def _shifted(df, cols, periods):
@@ -55,7 +55,7 @@ def monthly_features(monthly):
 def demographic_features(participants):
     """participant_id + numeric age + one-hot of categorical DEMOGRAPHICS.
 
-    Raw country and gender are kept too, for fairness breakdowns.
+    Raw FAIRNESS_GROUPS columns (country, gender, site) are kept too.
     """
     cats = [c for c in schema.DEMOGRAPHICS if c != "age"]
     dummies = pd.get_dummies(participants[cats], prefix=cats, dtype="int8")

@@ -96,7 +96,32 @@ TREND_THRESHOLD is a placeholder pending clinical minimal important difference;
 share is a log-odds attribution, not a probability, and the sentence wording
 should be checked with WP6.
 
+## Phase 4: Fairness audit and early-warning alerts (2026-09-23)
+
+| Path | Change |
+|---|---|
+| app/ml/fairness.py | fairness_report(): per-group selection rate, TPR, FPR, demographic parity gap, equal opportunity gap, warn flag at GAP_WARN=0.1. Positive = HIGH or CRITICAL. Missing demographics form their own group |
+| app/ml/alerts.py | generate_alerts(): crisis rule (suicidality >= 7 or screening Active plan / Previous attempt) -> P0, model HIGH/CRITICAL or P(positive) >= 0.5 -> P1, Deteriorating trend or MEDIUM -> P2; reasons list; intervention categories per priority |
+| app/ml/schema.py | site added to FAIRNESS_GROUPS; suicidality_screening is now a contract categorical (safety-rule input must fail at ingestion) |
+| app/ml/features.py | suicidality_screening kept in the frame as a non-feature |
+| app/ml/train.py | risk classifier meta gains "fairness" |
+| app/ml/evaluate.py | group breakdowns no longer drop rows with a missing group value |
+| tests/test_ml_alerts.py | 33 tests, with a deterministic stub model for P1/P2 paths |
+
+Mock baseline: country parity gap 0.03, gender 0.07, site 0.19 (warn: small
+site cells). Crisis rule recovers mock HIGH/CRITICAL at 99.9%, which confirms
+the mock flag is a suicidality threshold. Alerts on all 3,600 rows: P0 179,
+P2 1,020, none 2,401.
+
+Reviewed by two subagents. Fixed: screening rule was soft (no schema rule,
+guarded column), rows with a missing demographic were silently dropped from
+fairness and metric breakdowns, POSITIVE duplicated, two vacuous tests replaced
+with stub-model tests. Open: SUICIDALITY_CRISIS, P_HIGH_ALERT and GAP_WARN are
+placeholders pending the safeguarding protocol and a governance tolerance;
+anomaly detection from the proposal skipped (rules plus model cover it for now).
+
 ## Not done yet
 
-Phase 4 onward: fairness metrics (demographic parity, equal opportunity),
-early-warning alerts, intervention categories, endpoints.
+Phase 5: FastAPI endpoints (predict risk, trajectory, explain, alerts) with
+the one-hot reindex guard; REDCap loader backend; Docker image check.
+Phase 6: clustering, cross-country analytics, stigma model.

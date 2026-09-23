@@ -13,6 +13,11 @@ from sklearn.model_selection import GroupShuffleSplit
 from app.ml import schema
 
 
+def _group_key(series):
+    """Group labels as strings; missing demographics form their own group."""
+    return series.astype(object).where(series.notna(), "missing").astype(str)
+
+
 def participant_split(frame, test_size=0.2, seed=42):
     """Return (train_idx, test_idx); no participant appears in both."""
     splitter = GroupShuffleSplit(n_splits=1, test_size=test_size, random_state=seed)
@@ -44,6 +49,6 @@ def metrics_report(test_frame, y_true, y_pred, metric=classification_metrics):
     for group in schema.FAIRNESS_GROUPS:
         report[group] = {
             str(val): metric(y_true[idx], y_pred[idx])
-            for val, idx in test_frame.groupby(group).groups.items()
+            for val, idx in test_frame.groupby(_group_key(test_frame[group])).groups.items()
         }
     return report

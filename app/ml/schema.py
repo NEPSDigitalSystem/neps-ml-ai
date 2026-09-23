@@ -45,8 +45,11 @@ NLP_TARGETS = {
     "alert_priority": ["p0", "p1", "p2"],
 }
 
+# Safety rule input for alerts; a rename or re-spelling must fail at ingestion.
+SUICIDALITY_SCREENING = ["No", "Ideation", "Active plan", "Previous attempt"]
+
 CATEGORICALS = {
-    "monthly_reports": {"risk_flag": RISK_FLAG_TIERS},
+    "monthly_reports": {"risk_flag": RISK_FLAG_TIERS, "suicidality_screening": SUICIDALITY_SCREENING},
     "nlp_responses": NLP_TARGETS,
 }
 
@@ -63,7 +66,7 @@ DEMOGRAPHICS = ["country", "site", "gender", "age", "socioeconomic_status",
                 "food_security", "healthcare_access", "employment_status"]
 
 # Columns used for fairness breakdowns in every evaluation report.
-FAIRNESS_GROUPS = ["country", "gender"]
+FAIRNESS_GROUPS = ["country", "gender", "site"]
 
 
 class SchemaError(ValueError):
