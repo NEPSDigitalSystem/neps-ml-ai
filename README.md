@@ -11,6 +11,8 @@ NEPS Digital: Machine Learning & Artificial Intelligence module for youth mental
 7. [Docker Deployment](#docker-deployment)
 
 ## Project Overview
+> ML pipeline setup, data contract and roadmap: see [docs/ml/](docs/ml/). What was added versus what existed: [docs/ml/SETUP_LOG.md](docs/ml/SETUP_LOG.md).
+
 The NEPS ML/AI module provides NLP (Natural Language Processing) capabilities for analyzing qualitative mental health data, including:
 - Sentiment Analysis
 - Emotion Detection
