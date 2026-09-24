@@ -46,7 +46,7 @@ boundary is clear. Date: 2026-09-22.
 |---|---|
 | app/ml/schema.py | validate() implements rules 0 to 5. Ranges corrected to observed data. nlp_responses key changed to response_id (participant_id + month is not unique, 443 duplicates). Non-numeric scores and months fail as SchemaError, not TypeError. Null categoricals fail |
 | app/ml/loader.py | CSV backend. Loads four core files, fills substance_use nulls with "none" (lowercase: "None" is a pandas NA sentinel), validates each with participant ids for rule 4 |
-| tests/test_ml_loader.py | 38 tests: row counts, fill, round-trip, loader wiring, one or more failure per rule, edge cases |
+| tests/test_ml_loader.py | 55 tests (parametrised): row counts, fill, round-trip, loader wiring, one or more failure per rule, edge cases |
 | docs/ml/DATA_CONTRACT.md | nlp key corrected, rules section matches implementation |
 
 Reviewed by two independent subagents (implementation, tests). Findings fixed:
@@ -82,7 +82,7 @@ classes present in that group.
 | app/ml/train.py | train_trajectory() for next-month depression and anxiety; trend_label() Improving / Stable / Deteriorating at TREND_THRESHOLD=2.0; guard that targets are higher-is-worse scores; main() trains all three models |
 | app/ml/explain.py | SHAP TreeExplainer contributions for the predicted class, share of total |SHAP|, plain-language labels and sentences; binary and multiclass models |
 | tests/conftest.py | Session-scoped data, frame, classifier fixtures (suite 42s to 12s) |
-| tests/test_ml_explain.py | 32 tests |
+| tests/test_ml_explain.py | 40 tests |
 
 Baseline on mock v0.3.0: trajectory R2 0.13 (depression) and 0.07 (anxiety),
 trend accuracy 0.50. Expected: mock scores are independent month to month.
