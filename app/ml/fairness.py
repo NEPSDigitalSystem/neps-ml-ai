@@ -13,15 +13,10 @@ GAP_WARN=0.1 marks groups worth a look until WP6 sets one).
 """
 import pandas as pd
 
-from app.ml import schema
+from app.ml import evaluate, schema
 
-POSITIVE = ("HIGH", "CRITICAL")
+POSITIVE = schema.POSITIVE_TIERS
 GAP_WARN = 0.1
-
-
-def _group_key(series):
-    """Group labels as strings; missing demographics form their own group."""
-    return series.astype(object).where(series.notna(), "missing").astype(str)
 
 
 def _rates(y_true, y_pred):
@@ -45,12 +40,11 @@ def _gap(values):
 
 
 def fairness_report(test_frame, y_true, y_pred, groups=schema.FAIRNESS_GROUPS):
-    y_true = pd.Series(list(y_true), index=test_frame.index).astype(str)
-    y_pred = pd.Series(list(y_pred), index=test_frame.index).astype(str)
+    y_true = pd.Series(list(y_true)).astype(str)
+    y_pred = pd.Series(list(y_pred)).astype(str)
     report = {"positive_classes": list(POSITIVE), "overall": _rates(y_true, y_pred)}
     for group in groups:
-        per = {str(val): _rates(y_true[idx], y_pred[idx])
-               for val, idx in test_frame.groupby(_group_key(test_frame[group])).groups.items()}
+        per = evaluate.by_group(test_frame, y_true, y_pred, group, _rates)
         dp = _gap(v["selection_rate"] for v in per.values())
         eo = _gap(v["tpr"] for v in per.values())
         report[group] = {

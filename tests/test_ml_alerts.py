@@ -250,7 +250,7 @@ class TestGenerateAlerts:
         rows = frame.head(30)
         out = alerts.generate_alerts(rows, classifier, trajectory)
         nxt = t_model.predict(rows[t_meta["features"]])
-        expected = train.trend_label(rows["depression"], nxt, t_meta["trend_threshold"])
+        expected = features.trend_label(rows["depression"], nxt, t_meta["trend_threshold"])
         assert list(out.trend) == list(expected)
 
     def test_priority_precedence_p0_over_p1_over_p2(self, frame, classifier):

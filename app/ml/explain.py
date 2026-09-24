@@ -10,12 +10,10 @@ row and class, a relative attribution, not a probability. Sentences read
 Response shape is a proposal; confirm with the backend intern before the
 /explain endpoint (Phase 5).
 """
-import re
-
 import numpy as np
 import shap
 
-from app.ml import schema
+from app.ml import features, schema
 
 TOP_K = 5
 
@@ -47,7 +45,7 @@ def feature_label(name):
 
 def explain_risk(model, meta, X, top_k=TOP_K):
     """SHAP contributions for the predicted class of each row of X."""
-    X = X[meta["features"]]
+    X = features.align(X, meta)
     values = np.asarray(shap.TreeExplainer(model).shap_values(X))
     if values.ndim == 2:  # binary: shap gives log-odds of classes_[1] only
         values = np.stack([-values, values], axis=-1)

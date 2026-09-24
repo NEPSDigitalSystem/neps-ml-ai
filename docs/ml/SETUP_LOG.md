@@ -46,7 +46,7 @@ boundary is clear. Date: 2026-09-22.
 |---|---|
 | app/ml/schema.py | validate() implements rules 0 to 5. Ranges corrected to observed data. nlp_responses key changed to response_id (participant_id + month is not unique, 443 duplicates). Non-numeric scores and months fail as SchemaError, not TypeError. Null categoricals fail |
 | app/ml/loader.py | CSV backend. Loads four core files, fills substance_use nulls with "none" (lowercase: "None" is a pandas NA sentinel), validates each with participant ids for rule 4 |
-| tests/test_ml_loader.py | 62 tests: row counts, fill, round-trip, loader wiring, one or more failure per rule, edge cases |
+| tests/test_ml_loader.py | 38 tests: row counts, fill, round-trip, loader wiring, one or more failure per rule, edge cases |
 | docs/ml/DATA_CONTRACT.md | nlp key corrected, rules section matches implementation |
 
 Reviewed by two independent subagents (implementation, tests). Findings fixed:
@@ -61,7 +61,7 @@ column raises KeyError from the loader rather than SchemaError (accepted).
 | app/ml/features.py | lag1..3 and delta1 per score per participant, one-hot demographics, merge to training frame, feature_columns(). Rolling mean dropped after review: linear combination of the lags |
 | app/ml/evaluate.py | participant-level GroupShuffleSplit, accuracy and macro-F1, breakdown by country and gender |
 | app/ml/train.py | HistGradientBoostingClassifier (balanced) on risk_flag; registry models/<name>/<version>/{model.pkl, meta.json}; `python -m app.ml.train` |
-| tests/test_ml_train.py | 37 tests: feature correctness, participant isolation, metrics slicing, registry round-trip and collision |
+| tests/test_ml_train.py | 28 tests: feature correctness, participant isolation, metrics slicing, registry round-trip and collision |
 | .gitignore | models/*/ (versioned registry output is reproducible, not committed) |
 
 Baseline on mock v0.3.0, 720 test rows: accuracy 0.98, macro-F1 0.65 (CRITICAL
@@ -82,7 +82,7 @@ classes present in that group.
 | app/ml/train.py | train_trajectory() for next-month depression and anxiety; trend_label() Improving / Stable / Deteriorating at TREND_THRESHOLD=2.0; guard that targets are higher-is-worse scores; main() trains all three models |
 | app/ml/explain.py | SHAP TreeExplainer contributions for the predicted class, share of total |SHAP|, plain-language labels and sentences; binary and multiclass models |
 | tests/conftest.py | Session-scoped data, frame, classifier fixtures (suite 42s to 12s) |
-| tests/test_ml_explain.py | 43 tests |
+| tests/test_ml_explain.py | 32 tests |
 
 Baseline on mock v0.3.0: trajectory R2 0.13 (depression) and 0.07 (anxiety),
 trend accuracy 0.50. Expected: mock scores are independent month to month.
@@ -119,6 +119,26 @@ fairness and metric breakdowns, POSITIVE duplicated, two vacuous tests replaced
 with stub-model tests. Open: SUICIDALITY_CRISIS, P_HIGH_ALERT and GAP_WARN are
 placeholders pending the safeguarding protocol and a governance tolerance;
 anomaly detection from the proposal skipped (rules plus model cover it for now).
+
+## Pre-Phase-5 review and end-to-end check (2026-09-24)
+
+Fresh registry, `python -m app.ml.train`, reload in a separate process,
+explain and alerts on the saved models: all consistent. Two whole-of-work
+reviews (code coherence, conformance to the docs). Fixed:
+
+| Path | Change |
+|---|---|
+| app/ml/features.py | align(frame, meta): reindex to the trained feature list. A single-participant frame lacks most one-hot columns and crashed explain and alerts (Phase 5 blocker). trend_label and its constants moved here from train.py so alerts no longer imports train |
+| app/ml/schema.py | POSITIVE_TIERS lives next to RISK_FLAG_TIERS |
+| app/ml/evaluate.py | by_group() shared with fairness.py; duplicate group-key helper removed |
+| app/ml/features.py | KEYS taken from schema.KEYS |
+| app/ml/explain.py | unused import removed; uses align() |
+| tests/test_e2e.py | 2 tests: train to a temp registry, reload, single-participant alert + explanation, JSON-safe payload; single-participant predictions equal full-frame predictions |
+| docs/ml/README.md | status, architecture (fairness, alerts, align), registry contents, deferred-from-proposal list, Phase 5 needs, task statuses for 1, 2, 4 |
+| docs/ml/DATA_CONTRACT.md | features use two of the four files; fatigue_level is dropped |
+
+Test counts in earlier phase entries corrected to collected counts.
+Suite: 198 tests (40 mock client, 158 ML) in ~20s.
 
 ## Not done yet
 

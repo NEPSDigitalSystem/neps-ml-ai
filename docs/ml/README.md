@@ -4,15 +4,17 @@ Owner: Kelvin Ackah, AI/ML intern, longitudinal track (listed as "Daniel" on the
 WP4 roster by mistake). Topic: Longitudinal Machine Learning Models for Youth
 Psychosocial Risk Prediction, 30 hours. Yasmine's NLP track (sentiment, emotion,
 notebooks in src/ and notebooks/) is complete and is consumed here as input.
-Status: setup phase, no model code yet.
+Status: Phases 1 to 4 done (foundation, features and risk classifier,
+trajectory and explainability, fairness and alerts). Phase 5 (endpoints,
+REDCap backend) next. See SETUP_LOG.md for the per-phase record.
 
 ## Kelvin's tasks from the docs
 
 Core (named in the roster abstract and assessment brief):
-1. Predictive models for stress and risk trajectories over time
-2. Explainable AI on those models (SHAP, plain-language contributions)
+1. Predictive models for stress and risk trajectories over time DONE as baselines (risk tier classifier, next-month depression/anxiety regressors, trend label). Sequence models deferred to real data
+2. Explainable AI on those models (SHAP, plain-language contributions) DONE for the risk classifier; trajectory regressors are not explained yet
 3. Bias evaluation by country, gender and site DONE (app/ml/fairness.py)
-4. Combine numeric data with Yasmine's text outputs as features
+4. Combine numeric data with Yasmine's text outputs as features NOT STARTED (nlp_responses is loaded and validated only)
 
 Secondary (from the proposal's use cases):
 5. Early warning alerts and intervention category recommendation DONE (app/ml/alerts.py)
@@ -31,21 +33,25 @@ the same evaluation harness.
 ## Architecture
 
 ```
-data source (csv | redcap)
+data source (csv today | redcap in Phase 5)
         |
-   app/ml/loader.py      one function, two backends, chosen by REDCAP_MOCK_ENABLED
+   app/ml/loader.py      load_datasets(source=...); every frame validated
         |
-   app/ml/schema.py      validate columns, types, ranges; fail loudly
+   app/ml/schema.py      contract: keys, ranges, categoricals, FKs, months
         |
-   app/ml/features.py    pure functions, merge on participant_id + month
+   app/ml/features.py    lags/deltas on a full month grid, one-hot demographics,
+                         align() for inference, trend_label()
         |
-   app/ml/train.py       three simple baselines, saved with metadata
+   app/ml/train.py       risk_classifier + trajectory_<score>; registry with meta.json
         |
-   app/ml/evaluate.py    participant-level splits, fairness breakdown
+   app/ml/evaluate.py    participant-level split; metrics overall + by group
+   app/ml/fairness.py    selection rate, TPR, FPR, parity and opportunity gaps
         |
    app/ml/explain.py     SHAP -> plain-language contributions for WP6
+   app/ml/alerts.py      crisis rule + model + trend -> P0/P1/P2 + interventions
         |
-   main.py               /predict/risk  /predict/trajectory  /analyse/text  /explain
+   main.py               Phase 5: /predict/risk /predict/trajectory /explain /alerts
+                         (today: / and /health only)
 ```
 
 ## Deliverables and what the mock data supports
@@ -65,7 +71,7 @@ data source (csv | redcap)
 ## Roadmap
 
 1. Schema contract and validate() (app/ml/schema.py) DONE
-2. Loader with csv backend (app/ml/loader.py) DONE; redcap backend in step 8
+2. Loader with csv backend (app/ml/loader.py) DONE; redcap backend in Phase 5
 3. Feature functions and merge (app/ml/features.py) DONE
 4. Baselines: risk classifier DONE; trajectory regression DONE; text features later (app/ml/train.py)
 5. Evaluation harness with participant splits and fairness table (app/ml/evaluate.py) DONE
@@ -78,16 +84,30 @@ transformers, multimodal fusion, dropout prediction.
 
 ## Model registry
 
-Each trained model is saved to `models/<name>/<version>/` with `model.pkl` and
-`meta.json` holding data_version, feature list, metrics (overall and per
-fairness group), and trained_at. Retraining on real data produces a new
+Each trained model is saved to `models/<name>/<version>/` (gitignored) with
+`model.pkl` and `meta.json` holding name, target, classes, feature list,
+data_version, split sizes, seed, metrics (overall and per fairness group),
+fairness report (classifier), trend_threshold and trend_metrics (trajectory),
+trained_at and library versions. Retraining on real data produces a new
 version compared against the mock baseline in the same table.
+`python -m app.ml.train` trains all models; `train.load_model(name)` loads
+the latest version.
+
+## Deferred from the proposal (with reason)
+
+- LSTM / temporal transformers: no trend signal in mock data.
+- Transformer text models, fusion: text is templated; fusion target contradicts.
+- Counterfactual explanations, attention visualisation: need real data and text models.
+- Anomaly detection: rule + model hybrid covers the alert need for now.
+- Dropout prediction: no withdrawal dates.
+- A single "risk trajectory score": today p_high (alerts) plus trend label
+  cover it; a combined score needs a definition agreed with WP6.
 
 ## Open questions for the team
 
 - Frank (ETL): exact REDCap export field names; is risk_flag 2 or 4 tiers in production?
 - Backend intern: response shape of the /explain endpoint.
-- Predict path (Phase 5): reindex incoming one-hot columns to meta["features"] so unseen or missing categories cannot silently shift columns.
+- Phase 5 needs: a predict-one-participant function (history -> features -> risk, trend, alert, explanation), a REDCap loader backend that tolerates missing waves/nlp for a single participant, and a cached SHAP explainer per loaded model. align() already guards one-hot drift.
 - Study leads: are withdrawn or non-consented participants excluded from training?
 
 ## Ethics rules (from Yasmine's proposal)

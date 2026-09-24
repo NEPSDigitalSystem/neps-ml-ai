@@ -41,14 +41,17 @@ def regression_metrics(y_true, y_pred):
     }
 
 
+def by_group(test_frame, y_true, y_pred, group, fn):
+    """{group value: fn(y_true_slice, y_pred_slice)}; ignores the inputs' own index."""
+    y_true = pd.Series(list(y_true), index=test_frame.index)
+    y_pred = pd.Series(list(y_pred), index=test_frame.index)
+    return {str(val): fn(y_true[idx], y_pred[idx])
+            for val, idx in test_frame.groupby(_group_key(test_frame[group])).groups.items()}
+
+
 def metrics_report(test_frame, y_true, y_pred, metric=classification_metrics):
     """Overall metrics plus one entry per value of each fairness group."""
     report = {"overall": metric(y_true, y_pred)}
-    y_true = pd.Series(list(y_true), index=test_frame.index)
-    y_pred = pd.Series(list(y_pred), index=test_frame.index)
     for group in schema.FAIRNESS_GROUPS:
-        report[group] = {
-            str(val): metric(y_true[idx], y_pred[idx])
-            for val, idx in test_frame.groupby(_group_key(test_frame[group])).groups.items()
-        }
+        report[group] = by_group(test_frame, y_true, y_pred, group, metric)
     return report

@@ -15,8 +15,9 @@ Baseline: mock REDCap v0.3.0, exported to `data/raw/`.
 Always merge on keys. Never positional concat.
 
 `consolidated_ml_dataset.csv` and `master_nlp_clinical_ml_dataset.csv` are
-derived files. The loader does not read them; features.py (Phase 2) rebuilds
-them from the four core files.
+derived files. The loader does not read them. features.py builds the training
+frame from participants and monthly_reports only; waves and nlp_responses are
+loaded and validated but not yet used by any model.
 
 ## Corrections to DATASET_DESCRIPTION.md (observed in the actual CSVs)
 
@@ -34,7 +35,7 @@ them from the four core files.
 | File | Column | Nulls | Handling |
 |---|---|---|---|
 | monthly_reports | substance_use | 1,215 | null means no use; loader fills with "none" |
-| monthly_reports | fatigue_level | 40 | impute or drop column (fatigue_score exists) |
+| monthly_reports | fatigue_level | 40 | dropped by features.py (fatigue_score covers it) |
 | comprehensive_waves | bullying_exposure, food_insecurity, employment_pressure, digital_access, help_seeking_behaviour, awareness_of_services | 116 to 199 each | impute |
 
 ## Signal caveats

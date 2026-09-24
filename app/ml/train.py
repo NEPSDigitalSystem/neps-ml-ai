@@ -19,7 +19,6 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 import joblib
-import numpy as np
 import pandas as pd
 import sklearn
 from sklearn.ensemble import HistGradientBoostingClassifier, HistGradientBoostingRegressor
@@ -30,16 +29,8 @@ from app.ml.loader import load_datasets
 MODELS_DIR = Path(__file__).resolve().parents[2] / "models"
 DATA_VERSION = "mock-redcap-v0.3.0"
 
-# Only scores where higher = worse; trend_label assumes that direction.
-# Inverted scores (self_esteem, mood_score, coping_score, ...) need a sign flip.
 TRAJECTORY_TARGETS = ["depression", "anxiety"]
-HIGHER_IS_WORSE = {"depression", "anxiety", "stress", "social_isolation", "loneliness",
-                   "fatigue_score", "substance_abuse_score", "suicidality_score"}
-assert set(TRAJECTORY_TARGETS) <= HIGHER_IS_WORSE
-# ponytail: fixed change threshold for trend labels; calibrate per score
-# against clinical minimal-important-difference when real data arrives.
-TREND_THRESHOLD = 2.0
-TREND_LABELS = ("Improving", "Stable", "Deteriorating")
+assert set(TRAJECTORY_TARGETS) <= features.HIGHER_IS_WORSE
 
 
 def _versions():
@@ -73,15 +64,6 @@ def train_risk_classifier(frame, seed=42):
     return model, meta
 
 
-def trend_label(current, predicted, threshold=TREND_THRESHOLD):
-    """Higher score = worse: change >= threshold is Deteriorating, <= -threshold Improving."""
-    change = np.asarray(predicted, dtype=float) - np.asarray(current, dtype=float)
-    if np.isnan(change).any():
-        raise ValueError("trend_label: NaN in current or predicted")
-    return np.where(change >= threshold, "Deteriorating",
-                    np.where(change <= -threshold, "Improving", "Stable"))
-
-
 def train_trajectory(frame, target, seed=42):
     """Predict next month's `target` score. Returns (model, meta)."""
     data = features.add_next_month_targets(frame, [target])
@@ -94,8 +76,8 @@ def train_trajectory(frame, target, seed=42):
     model.fit(train[cols], train[y_col])
 
     pred = model.predict(test[cols])
-    trend_true = trend_label(test[target], test[y_col])
-    trend_pred = trend_label(test[target], pred)
+    trend_true = features.trend_label(test[target], test[y_col])
+    trend_pred = features.trend_label(test[target], pred)
     meta = {
         "name": f"trajectory_{target}",
         "target": y_col,
@@ -104,7 +86,7 @@ def train_trajectory(frame, target, seed=42):
         "n_train": int(len(train)),
         "n_test": int(len(test)),
         "seed": seed,
-        "trend_threshold": TREND_THRESHOLD,
+        "trend_threshold": features.TREND_THRESHOLD,
         "metrics": evaluate.metrics_report(test, test[y_col], pred, metric=evaluate.regression_metrics),
         "trend_metrics": evaluate.metrics_report(test, trend_true, trend_pred),
         "trained_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),

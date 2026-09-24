@@ -10,6 +10,7 @@ Early months have NaN lags; HistGradientBoosting handles NaN natively.
 Shifts are computed on a full participant x month grid, so a missing month
 (real data has ~85% completion) yields NaN rather than the wrong month.
 """
+import numpy as np
 import pandas as pd
 
 from app.ml import schema
@@ -17,7 +18,7 @@ from app.ml import schema
 LAGS = (1, 2, 3)
 TEMPORAL_SUFFIXES = tuple(f"_lag{k}" for k in LAGS) + ("_delta1",)
 TARGET = "risk_flag"
-KEYS = ["participant_id", "month"]
+KEYS = schema.KEYS["monthly_reports"]
 # Kept in the frame but never fed to a model.
 NON_FEATURE = KEYS + [TARGET, "survey_date", "requires_follow_up", "suicidality_screening"] + schema.FAIRNESS_GROUPS
 
@@ -89,3 +90,32 @@ def add_next_month_targets(frame, cols):
 
 def feature_columns(frame):
     return [c for c in frame.columns if c not in NON_FEATURE and not c.endswith("_next")]
+
+
+def align(frame, meta):
+    """Model input in the exact column order the model was trained on.
+
+    One-hot columns only exist for categories present in `frame`, so a
+    single-participant frame lacks most of them; missing ones become 0.
+    Extra columns are dropped. Every predict path must go through this.
+    """
+    return frame.reindex(columns=meta["features"], fill_value=0)
+
+
+# ponytail: fixed change threshold for trend labels; calibrate per score
+# against clinical minimal-important-difference when real data arrives.
+TREND_THRESHOLD = 2.0
+TREND_LABELS = ("Improving", "Stable", "Deteriorating")
+# Only scores where higher = worse may be trend targets; inverted scores
+# (self_esteem, mood_score, coping_score, ...) would need a sign flip.
+HIGHER_IS_WORSE = {"depression", "anxiety", "stress", "social_isolation", "loneliness",
+                   "fatigue_score", "substance_abuse_score", "suicidality_score"}
+
+
+def trend_label(current, predicted, threshold=TREND_THRESHOLD):
+    """change >= threshold is Deteriorating, <= -threshold Improving, else Stable."""
+    change = np.asarray(predicted, dtype=float) - np.asarray(current, dtype=float)
+    if np.isnan(change).any():
+        raise ValueError("trend_label: NaN in current or predicted")
+    return np.where(change >= threshold, "Deteriorating",
+                    np.where(change <= -threshold, "Improving", "Stable"))

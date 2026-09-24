@@ -83,26 +83,26 @@ class TestTrendLabel:
     def test_direction_and_threshold(self):
         cur = [10, 10, 10, 10, 10]
         pred = [15, 12.0, 11.9, 8.1, 5]
-        assert list(train.trend_label(cur, pred, threshold=2.0)) == [
+        assert list(features.trend_label(cur, pred, threshold=2.0)) == [
             "Deteriorating", "Deteriorating", "Stable", "Stable", "Improving"]
 
     def test_exact_negative_threshold_is_improving(self):
-        assert train.trend_label([10], [8.0], threshold=2.0)[0] == "Improving"
+        assert features.trend_label([10], [8.0], threshold=2.0)[0] == "Improving"
 
     def test_accepts_series_and_arrays(self):
-        out = train.trend_label(pd.Series([1.0, 2.0]), np.array([1.0, 9.0]))
+        out = features.trend_label(pd.Series([1.0, 2.0]), np.array([1.0, 9.0]))
         assert list(out) == ["Stable", "Deteriorating"]
 
     def test_nan_is_rejected(self):
         with pytest.raises(ValueError, match="NaN"):
-            train.trend_label([1.0, 2.0], [1.0, float("nan")])
+            features.trend_label([1.0, 2.0], [1.0, float("nan")])
 
     def test_targets_are_higher_is_worse_scores(self):
-        assert set(train.TRAJECTORY_TARGETS) <= train.HIGHER_IS_WORSE
+        assert set(train.TRAJECTORY_TARGETS) <= features.HIGHER_IS_WORSE
 
     def test_only_known_labels(self, frame):
-        out = train.trend_label(frame["depression"], frame["anxiety"])
-        assert set(out) <= set(train.TREND_LABELS)
+        out = features.trend_label(frame["depression"], frame["anxiety"])
+        assert set(out) <= set(features.TREND_LABELS)
 
 
 # ─── TRAJECTORY TRAINER ────────────────────────────────────────────────────────
@@ -119,7 +119,7 @@ class TestTrajectory:
         assert meta["target"] == "depression_next"
         assert "depression_next" not in meta["features"]
         assert meta["n_train"] + meta["n_test"] == 150 * 23
-        assert meta["trend_threshold"] == train.TREND_THRESHOLD
+        assert meta["trend_threshold"] == features.TREND_THRESHOLD
         assert set(meta["metrics"]) == set(meta["trend_metrics"]) == {"overall", *schema.FAIRNESS_GROUPS}
         assert {"mae", "r2"} <= set(meta["metrics"]["overall"])
         assert {"accuracy", "macro_f1"} <= set(meta["trend_metrics"]["overall"])

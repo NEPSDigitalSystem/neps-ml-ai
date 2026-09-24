@@ -36,6 +36,7 @@ MONTHLY_SCORES = {
 
 # Rule 3: categorical targets.
 RISK_FLAG_TIERS = ["LOW", "MEDIUM", "HIGH", "CRITICAL"]  # mock has 4 tiers, not 2
+POSITIVE_TIERS = ("HIGH", "CRITICAL")  # "flagged for follow-up" in fairness and alerts
 
 NLP_TARGETS = {
     "sentiment_manual": ["positive", "mildly_positive", "neutral", "mildly_negative", "negative"],

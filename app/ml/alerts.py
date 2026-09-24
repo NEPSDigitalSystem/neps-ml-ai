@@ -18,8 +18,8 @@ screening half (a required contract column) still does.
 import numpy as np
 import pandas as pd
 
-from app.ml import train
-from app.ml.fairness import POSITIVE
+from app.ml import features
+from app.ml.schema import POSITIVE_TIERS as POSITIVE
 
 SUICIDALITY_CRISIS = 7.0
 CRISIS_SCREENING = ("Active plan", "Previous attempt")
@@ -43,7 +43,7 @@ def generate_alerts(frame, risk, trajectory=None):
     """frame: rows from build_training_frame. risk: (model, meta).
     trajectory: optional (model, meta) for depression, used for the trend."""
     model, meta = risk
-    X = frame[meta["features"]]
+    X = features.align(frame, meta)
     pred = model.predict(X).astype(str)
     p_pos = _p_positive(model, X)
 
@@ -63,8 +63,8 @@ def generate_alerts(frame, risk, trajectory=None):
     if trajectory is not None:
         t_model, t_meta = trajectory
         target = t_meta["target"].removesuffix("_next")
-        nxt = t_model.predict(frame[t_meta["features"]])
-        out["trend"] = train.trend_label(frame[target], nxt, t_meta["trend_threshold"])
+        nxt = t_model.predict(features.align(frame, t_meta))
+        out["trend"] = features.trend_label(frame[target], nxt, t_meta["trend_threshold"])
     watch = (out["trend"] == "Deteriorating").to_numpy() | (pred == "MEDIUM")
 
     out["priority"] = np.select([crisis, high, watch], ["P0", "P1", "P2"], default="none")  # first match wins
