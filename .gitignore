@@ -219,3 +219,6 @@ __marimo__/
 
 # ML model registry (versioned, reproducible from data/raw via python -m app.ml.train)
 models/*/
+
+# Project documents (PDFs, ML docs, guide) stay local
+docs/
