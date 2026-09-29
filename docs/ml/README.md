@@ -8,6 +8,9 @@ Status: Phases 1 to 4 done (foundation, features and risk classifier,
 trajectory and explainability, fairness and alerts). Phase 5 (endpoints,
 REDCap backend) next. See SETUP_LOG.md for the per-phase record.
 
+New here? Read GUIDE.md first: a plain-language walkthrough of the task, what
+was built, and how it maps to the source documents.
+
 ## Kelvin's tasks from the docs
 
 Core (named in the roster abstract and assessment brief):
