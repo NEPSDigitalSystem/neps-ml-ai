@@ -149,3 +149,54 @@ print(correlation)
    - Use `consolidated_ml_dataset.csv` or `monthly_reports.csv` merged with `participants.csv`. Target column: `risk_flag` or `anxiety` / `depression`.
 3. **Multimodal Joint Models (Combined Text + Tabular Clinical Scores)**:
    - Merge `nlp_responses.csv` + `monthly_reports.csv` + `participants.csv` using the `pd.merge` pattern above.
+
+---
+
+## 6. Official NEPS V3.1 Clinical Survey Contract (73-Item NSES & Production Database Schema)
+
+> [!IMPORTANT]
+> **Update (October 2026)**: The NEPS Board and Data Platform team have frozen the official **NEPS Master CRF V3.1** data contract and psychometric scoring rules.  
+> ML models transitioning from synthetic development to production ingestion should align their feature definitions with the **73 verified clinical core items** below.
+
+### 6.1 The 7 Verified Psychometric Sub-Indices (73 Items Total)
+
+The official **NEPS Stress Experience Scale (NSES)** is computed strictly from 73 validated screening questions across 7 clinical indices. All 73 items use standardized integer Likert scales:
+
+| Index Code | Instrument / Domain Name | Item Count | Variable Prefix | Measurement Focus & Scale |
+| :--- | :--- | :---: | :--- | :--- |
+| **EPI** | Educational Pressure Index | 10 | `epi_expectations_1-2`, `epi_failure_1-2`, `epi_caregivers_1-2`, `epi_future_1-2`, `epi_progress_1-2` | Academic expectations, failure anxiety, caregiver pressure (1–5 Likert). |
+| **ESI** | Economic Stress Index | 10 | `esi_finstrain_1-2`, `esi_food_1-2`, `esi_educost_1-2`, `esi_materials_1-2`, `esi_transport_1-2` | Financial strain, food insecurity, schooling costs, transportation (1–5 Likert). |
+| **SBI** | Stigma & Burden Index | 19 | `sbi_loved_1-8`, `sbi_comm_1-4`, `sbi_self_1-4`, `sbi_help_1-3` | Loved ones' stigma, community stigma, internalized self-stigma, help-seeking reluctance (1–5 Likert). |
+| **K6** | Kessler Psychological Distress Scale | 6 | `k6_1` to `k6_6` | Non-specific distress: nervousness, hopelessness, restlessness, depression, effort, worthlessness (0–4 scale). |
+| **BRS** | Brief Resilience Scale | 6 | `brs_01` to `brs_06` | Ability to bounce back from stress and recover from hard times (1–5 Likert). |
+| **MSPSS**| Multidimensional Scale of Perceived Social Support | 12 | `mspss_01` to `mspss_12` | Perceived social support from Family, Friends, and Significant Others (1–7 Likert). |
+| **GSE** | General Self-Efficacy Scale | 10 | `gse_01` to `gse_10` | Optimistic self-belief in coping with life difficulties (1–4 Likert). |
+
+### 6.2 Production Database Tables (Where ML Features Live)
+
+When the Data Platform ingests live surveys into PostgreSQL, the ML team can query feature sets from these three primary tables:
+
+1. **`nds_v31_source` (Raw Intake)**:
+   - Stores all **188 raw survey responses** in a JSON `payload` column.
+   - Includes survey timestamps, country (`country`), and links to the NDS participant (`nds_participant_id`).
+2. **`nds_v31_derived` (Clinical Psychometric Scores)**:
+   - Contains the calculated **NSES Composite Score** and individual dimension sub-scores (`result` JSON column).
+   - Key JSON fields:
+     ```json
+     {
+       "nses_composite_score": 58.4,
+       "subscales": {
+         "epi": 24.0,
+         "esi": 18.0,
+         "sbi": 42.0,
+         "k6": 12.0,
+         "brs": 19.0,
+         "mspss": 65.0,
+         "gse": 28.0
+       },
+       "calculation_version": "v3.1-provisional"
+     }
+     ```
+3. **`nds_v31_participant_links` (Participant Cross-Walk)**:
+   - Maps the REDCap field record ID (`source_id`) to the official NDS research participant ID (`nds_id`).
+   - Ensures ML predictions can join on `nds_id` without exposing raw field survey tokens.
