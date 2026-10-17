@@ -17,7 +17,7 @@ jobs:
     continue-on-error: true
     steps:
       - name: Dependency Review
-        uses: actions/dependency-review-action@v4
+        uses: actions/dependency-review-action@v5
         with:
           fail-on-severity: moderate
           deny-licenses: GPL-3.0, AGPL-3.0
@@ -28,8 +28,8 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.11'
       - name: Install pip-audit
@@ -45,7 +45,7 @@ jobs:
       is-patch-only: ${{ steps.check.outputs.is-patch-only }}
       has-production-deps: ${{ steps.check.outputs.has-production-deps }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Check if PR only contains patch updates
         id: check
         run: |
@@ -81,7 +81,7 @@ jobs:
       pull-requests: write
     steps:
       - name: Auto-approve dev dependency patch updates
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             github.rest.issues.createComment({
