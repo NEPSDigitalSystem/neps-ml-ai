@@ -1,6 +1,6 @@
 version: 2
 updates:
-  # pip (Python ML/AI)
+  # pip (Python ML/AI) - Combined production and dev dependencies
   - package-ecosystem: "pip"
     directory: "/"
     schedule:
@@ -10,6 +10,42 @@ updates:
     labels:
       - "dependencies"
       - "ml-ai"
+    groups:
+      # Group patch updates (bug fixes) - safe to merge together
+      patch-updates:
+        patterns:
+          - "*"
+        update-types:
+          - "patch"
+        exclude-patterns:
+          - "*rc*"
+          - "*beta*"
+          - "*alpha*"
+          - "*dev*"
+      # Group ML framework packages - require individual review
+      ml-frameworks:
+        patterns:
+          - "torch"
+          - "tensorflow"
+          - "scikit-learn"
+          - "numpy"
+          - "pandas"
+        update-types:
+          - "minor"
+          - "patch"
+      # Group development dependencies
+      dev-dependencies:
+        patterns:
+          - "pytest*"
+          - "coverage*"
+          - "black"
+          - "flake8"
+          - "mypy"
+          - "isort"
+    versioning-strategy: increase
+    commit-message:
+      prefix: "chore(deps)"
+      include: "scope"
 
   # Docker base image
   - package-ecosystem: "docker"
@@ -17,9 +53,18 @@ updates:
     schedule:
       interval: "weekly"
       day: "monday"
+    open-pull-requests-limit: 5
     labels:
       - "dependencies"
       - "docker"
+    groups:
+      docker-base:
+        patterns:
+          - "python:*"
+          - "cuda:*"
+    commit-message:
+      prefix: "chore(docker)"
+      include: "scope"
 
   # GitHub Actions
   - package-ecosystem: "github-actions"
@@ -27,6 +72,14 @@ updates:
     schedule:
       interval: "weekly"
       day: "monday"
+    open-pull-requests-limit: 5
     labels:
       - "dependencies"
       - "ci-cd"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+    commit-message:
+      prefix: "chore(ci)"
+      include: "scope"
