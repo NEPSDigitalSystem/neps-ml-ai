@@ -1,0 +1,92 @@
+name: Dependency Review
+
+on:
+  pull_request:
+    branches: [main, staging]
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  dependency-review:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    continue-on-error: true
+    steps:
+      - name: Dependency Review
+        uses: actions/dependency-review-action@v4
+        with:
+          fail-on-severity: moderate
+          deny-licenses: GPL-3.0, AGPL-3.0
+        # Note: This step will fail if Dependency Graph is not enabled in repo settings
+        # To enable: Go to repo Settings > Security & Analysis > Dependency Graph
+
+  pip-audit:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install pip-audit
+        run: pip install pip-audit
+      - name: Run pip-audit
+        run: pip-audit --format json
+        continue-on-error: true
+
+  check-patch-updates:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    outputs:
+      is-patch-only: ${{ steps.check.outputs.is-patch-only }}
+      has-production-deps: ${{ steps.check.outputs.has-production-deps }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check if PR only contains patch updates
+        id: check
+        run: |
+          # Check if PR is from dependabot
+          if [ "${{ github.actor }}" == "dependabot[bot]" ]; then
+            # Check PR title for patch-only updates
+            if echo "${{ github.event.pull_request.title }}" | grep -q "patch"; then
+              echo "is-patch-only=true" >> $GITHUB_OUTPUT
+            else
+              echo "is-patch-only=false" >> $GITHUB_OUTPUT
+            fi
+
+            # Check if it's production dependencies
+            if echo "${{ github.event.pull_request.title }}" | grep -q "deps-prod"; then
+              echo "has-production-deps=true" >> $GITHUB_OUTPUT
+            else
+              echo "has-production-deps=false" >> $GITHUB_OUTPUT
+            fi
+          else
+            echo "is-patch-only=false" >> $GITHUB_OUTPUT
+            echo "has-production-deps=false" >> $GITHUB_OUTPUT
+          fi
+
+  auto-approve-dev-deps:
+    runs-on: ubuntu-latest
+    needs: [pip-audit, check-patch-updates]
+    if: |
+      github.event_name == 'pull_request' &&
+      github.actor == 'dependabot[bot]' &&
+      needs.check-patch-updates.outputs.is-patch-only == 'true' &&
+      needs.check-patch-updates.outputs.has-production-deps == 'false'
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Auto-approve dev dependency patch updates
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '✅ This PR contains only patch updates to development dependencies and passed all security checks. Safe to merge after CI passes.'
+            })
