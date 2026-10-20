@@ -3,7 +3,7 @@ NEPS Digital: Machine Learning & Artificial Intelligence module for youth mental
 
 ## Table of Contents
 1. [Project Overview](#project-overview)
-2. [Quick Start: Using Mock REDCap Data](#quick-start-using-mock-redcap-data)
+2. [Data Access: V3.1 Source of Truth](#data-access-v31-source-of-truth)
 3. [NLP Pipeline & Models](#nlp-pipeline--models)
 4. [Jupyter Notebooks](#jupyter-notebooks)
 5. [Directory Structure](#directory-structure)
@@ -18,77 +18,54 @@ The NEPS ML/AI module provides NLP (Natural Language Processing) capabilities fo
 - Risk Explanation
 - Recommendation Systems
 
-## Quick Start: Using Mock REDCap Data
+## Data Access: V3.1 Source of Truth
 
-We have two options for using mock REDCap data:
+ML/AI does **not** call REDCap and does **not** generate its own mock data. It reads the
+verified V3.1 baseline records and the authoritative NSES/subscale scores directly from
+**PostgreSQL**, which is the single source of truth shared by every NEPS team
+(frontend, backend, data platform).
 
-### Option 1: Use Hosted Mock REDCap API (Recommended)
-The mock API is deployed on Render for all teams to use!
+```
+REDCap (mock or real) → Data Platform → PostgreSQL (nds_v31_source, nds_v31_derived) → ML/AI
+```
 
-1. Create a `.env` file in the project root:
+Swapping mock REDCap for the real REDCap instance is a **configuration change in the
+Data Platform** (`REDCAP_API_URL` / `REDCAP_MOCK_ENABLED`); it requires no change to ML/AI.
+
+### Connection
+
+The service reads the database password from a Docker secret and builds the URL itself:
+
 ```bash
-REDCAP_API_URL=https://mock-redcap-service.onrender.com/api
-REDCAP_API_TOKEN=mock_token_neps_2025
+DATABASE_URL_FILE=/run/secrets/postgres_password
 ```
 
-2. Make HTTP requests to the API (e.g., using `requests`):
+For local development outside Docker, set `DATABASE_URL` directly (see `.env.example`).
+
+### Reading data in Python
+
 ```python
-import requests
-import os
+from app.data.v31_repository import V31Repository
 
-api_url = os.getenv("REDCAP_API_URL")
-api_token = os.getenv("REDCAP_API_TOKEN")
+repo = V31Repository()
 
-# Get all participants
-response = requests.get(f"{api_url}/participants")
-participants = response.json()["data"]
-
-# Get project stats
-stats_response = requests.get(f"{api_url}/stats")
-print(stats_response.json())
+dataset = repo.get_v31_baseline_dataset()   # metadata + 223-field payload + score_* columns
+features = repo.get_v31_raw_features()      # source payload fields only
+scores = repo.get_v31_scores()              # score_NSES, score_EPI, ...
+ghana = repo.get_v31_by_country("Ghana")
+repo.get_record_count()                     # {'total_records': ..., 'countries': ..., 'scored_records': ...}
 ```
 
-### Option 2: Use Local Embedded Mock (No Network Needed)
-We've also included a local mock REDCap dataset!
+### HTTP endpoints for inspection
 
-1. Test the Mock Data:
-```bash
-python test_mock.py
-```
+| Endpoint | Purpose |
+| :--- | :--- |
+| `GET /api/v31/contract` | The 73 core items and the 10 derived score keys/labels |
+| `GET /api/v31/stats` | Record/country/scored-record counts |
+| `GET /api/v31/dataset` | Dataset summary: record count, feature columns, score coverage, one sample row |
 
-This should show you:
-- 150 participants across 3 countries (Ghana, Sierra Leone, Tanzania)
-- 24 months of survey data
-- Distress screenings
-- WP6 intervention sessions
-
-2. Use the Mock in Your Code:
-```python
-from app.services.redcap_mock import RedCapMockClient
-
-client = RedCapMockClient()
-
-# Get all participants
-participants = client.get_participants()
-
-# Filter by country
-ghana_participants = client.get_participants(country="Ghana")
-
-# Get survey responses
-survey_responses = client.get_survey_responses()
-
-# Export all records
-all_records = client.export_records()  # Returns list of dicts
-# Or export as CSV
-csv_data = client.export_records(format="csv")
-```
-
-### 3. Data Available
-- **150 participants** (50/year across 3 countries)
-- **24 months of monthly self-reports** (85% completion rate)
-- **Comprehensive wave data** (6, 12, 18, 24 months)
-- **Distress screenings** (10% flagged as high-risk)
-- **WP6 intervention data** (20 participants, 8 sessions each)
+The derived scores are produced by the Data Platform scoring engine and must be read, not
+recomputed. `NSES` and `EPI` are `null` until EPI applicability is verified.
 
 ## NLP Pipeline & Models
 
@@ -120,19 +97,23 @@ Located in the `notebooks/` directory, documenting the full ML/AI development wo
 neps-ml-ai/
 ├── app/                     # Application code
 │   ├── __init__.py
-│   └── services/
-│       └── redcap_mock.py  # Mock REDCap client
+│   ├── config.py           # Settings (Docker-secret aware)
+│   ├── data/
+│   │   └── v31_repository.py  # V3.1 PostgreSQL repository
+│   └── db/
+│       └── connection.py   # SQLAlchemy engine
 ├── models/                  # Pre-trained ML models
 ├── notebooks/               # Jupyter notebooks for development
-├── src/                     # NLP source scripts
+├── src/
+│   ├── neps_v31_clinical_contract.py  # 73-item + derived-score contract
+│   └── nlp-*.py             # NLP source scripts
 ├── tests/                   # Test suite
 ├── .env.example            # Environment variables template
 ├── .gitignore
 ├── Dockerfile              # Docker container configuration
 ├── README.md
-├── main.py                 # Main application entry point
-├── requirements.txt        # Python dependencies
-└── test_mock.py            # Test script for mock data
+├── main.py                 # FastAPI entry point
+└── requirements.txt        # Python dependencies
 ```
 
 ## Testing
@@ -150,5 +131,8 @@ docker run -p 8001:8000 neps-ml-ai:latest
 
 The service exposes:
 - Health check: `http://localhost:8001/health`
+- V3.1 contract: `http://localhost:8001/api/v31/contract`
+- V3.1 stats: `http://localhost:8001/api/v31/stats`
+- V3.1 dataset summary: `http://localhost:8001/api/v31/dataset`
 - Metrics: `http://localhost:8001/metrics` (Prometheus format)
 
