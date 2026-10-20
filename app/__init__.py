@@ -1,1 +1,1 @@
-# NEPS ML/AI Package
+# App package
