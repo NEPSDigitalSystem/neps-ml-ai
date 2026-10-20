@@ -8,6 +8,7 @@ This module provides the exact feature column names, subscale mappings, and
 validation helpers for ML risk prediction, sentiment extraction, and trajectory models.
 """
 
+import json
 from typing import Dict, List, Any, Optional
 
 # The 73 core items in official dictionary order
@@ -172,3 +173,91 @@ def calculate_subscale_means(features: Dict[str, Optional[float]]) -> Dict[str, 
         else:
             subscale_scores[code] = 0.0
     return subscale_scores
+
+
+# ─── DERIVED SCORE CONTRACT (nds_v31_derived.result) ─────────────────────────
+# The scores emitted by the Data Platform V3.1 scoring engine
+# (etl/scoring/v31.py -> ScoringResult.scores). Values are 0–100 normalised
+# except K6_total (0–24 raw scale). Any of these may be null when the
+# underlying items are incomplete or (for EPI/NSES) applicability is unverified.
+DERIVED_SCORE_KEYS: List[str] = [
+    "EPI",
+    "ESI",
+    "SBI",
+    "MHDI",
+    "K6_total",
+    "BRS_100",
+    "MSPSS_100",
+    "GSE_100",
+    "PFI",
+    "NSES",
+]
+
+DERIVED_SCORE_LABELS: Dict[str, str] = {
+    "EPI": "Educational Pressure Index (0–100)",
+    "ESI": "Economic Stress Index (0–100)",
+    "SBI": "Stigma & Burden Index (0–100)",
+    "MHDI": "Mental Health Distress Index / K6 normalised (0–100)",
+    "K6_total": "Kessler-6 total raw score (0–24)",
+    "BRS_100": "Brief Resilience Scale normalised (0–100)",
+    "MSPSS_100": "Perceived Social Support normalised (0–100)",
+    "GSE_100": "General Self-Efficacy normalised (0–100)",
+    "PFI": "Protective Factors Index composite (0–100)",
+    "NSES": "NEPS Stress Experience Scale composite (0–100; null unless EPI applicable)",
+}
+
+
+def _coerce_score(value: Any) -> Optional[float]:
+    """Coerce a single stored score value to float, tolerating both stored shapes.
+
+    The Data Platform has stored `nds_v31_derived.result` in two shapes:
+      1. Flat:   {"NSES": 62.5, ...}
+      2. Nested: {"scores": {"NSES": {"value": {"numerator": 5, "denominator": 8},
+                                      "issues": [...]}}, "algorithm_version": ...}
+    """
+    if value is None or isinstance(value, bool):
+        return None
+    if isinstance(value, (int, float)):
+        return float(value)
+    if isinstance(value, str):
+        try:
+            return float(value.strip())
+        except ValueError:
+            return None
+    if isinstance(value, dict):
+        if "numerator" in value and "denominator" in value:
+            numerator, denominator = value["numerator"], value["denominator"]
+            try:
+                denominator = float(denominator)
+                return float(numerator) / denominator if denominator else None
+            except (TypeError, ValueError):
+                return None
+        if "value" in value:
+            return _coerce_score(value["value"])
+    return None
+
+
+def normalize_derived_result(result: Any) -> tuple[Dict[str, Optional[float]], Dict[str, Any]]:
+    """Normalise a `nds_v31_derived.result` payload into flat scores + metadata.
+
+    Returns:
+        (scores, metadata) where `scores` is keyed by DERIVED_SCORE_KEYS and
+        `metadata` holds any non-score fields (algorithm_version, provisional,
+        nds_participant_id, mapping_version, ...).
+    """
+    if result is None or result == "":
+        return {key: None for key in DERIVED_SCORE_KEYS}, {}
+    if isinstance(result, str):
+        try:
+            result = json.loads(result)
+        except (ValueError, TypeError):
+            return {key: None for key in DERIVED_SCORE_KEYS}, {}
+    if not isinstance(result, dict):
+        return {key: None for key in DERIVED_SCORE_KEYS}, {}
+
+    nested = isinstance(result.get("scores"), dict)
+    raw_scores = result.get("scores") if nested else result
+    metadata = {k: v for k, v in result.items() if k != "scores"} if nested else {}
+
+    scores = {key: _coerce_score(raw_scores.get(key)) for key in DERIVED_SCORE_KEYS}
+    return scores, metadata

@@ -65,7 +65,7 @@ To help you adapt existing notebooks (`nlp-01-eda.ipynb` through `nlp-08-recomme
 
 | Previous Mock Metric | Official Clinical Scale | Exact V3.1 Database Source |
 | :--- | :--- | :--- |
-| `stress` | **NSES Composite & EPI** | `nds_v31_derived.result['nses_composite_score']`, `epi_*` |
+| `stress` | **NSES Composite & EPI** | `nds_v31_derived.result['NSES']` (composite), `nds_v31_derived.result['EPI']`, `epi_*` items |
 | `anxiety` / `depression` | **K6 Distress Scale** | `k6_1` to `k6_6` items |
 | `resilience` / `coping_score` | **BRS & GSE Scales** | `brs_01-06`, `gse_01-10` |
 | `social_isolation` | **MSPSS Social Support** | `mspss_01-12` (inversely correlated with isolation) |
@@ -94,6 +94,54 @@ features = extract_core73_features(raw_survey_dict)
 subscale_means = calculate_subscale_means(features)
 # Returns: {'EPI': 3.5, 'ESI': 2.1, 'SBI': 1.8, 'K6': 2.5, 'BRS': 3.0, 'MSPSS': 5.2, 'GSE': 3.1}
 ```
+
+### 4.1 Authoritative Derived Scores (`nds_v31_derived.result`)
+
+The Data Platform scoring engine writes the official NSES composite and its subscales
+into `nds_v31_derived.result`. **Do not re-derive these in the ML service** — read them
+directly. The only valid score keys are (see `DERIVED_SCORE_KEYS`):
+
+| Key | Meaning |
+| :--- | :--- |
+| `NSES` | NEPS Stress Experience Scale composite (0–100; `null` unless EPI applicability is verified) |
+| `EPI` | Educational Pressure Index (0–100; `null` unless applicability is verified) |
+| `ESI` | Economic Stress Index (0–100) |
+| `SBI` | Stigma & Burden Index (0–100) |
+| `MHDI` | Mental Health Distress Index (K6 normalised, 0–100) |
+| `K6_total` | Kessler-6 total raw score (0–24) |
+| `BRS_100` | Brief Resilience Scale (0–100) |
+| `MSPSS_100` | Perceived Social Support (0–100) |
+| `GSE_100` | General Self-Efficacy (0–100) |
+| `PFI` | Protective Factors Index composite (0–100) |
+
+> **Note:** values may be `null` when the underlying items are incomplete, or (for
+> `NSES`/`EPI`) when applicability has not yet been verified — this is expected and
+> the missingness should be handled, not imputed blindly.
+
+### 4.2 Reading Verified Data Directly from PostgreSQL
+
+Use the repository — it is the single source of truth and joins `nds_v31_source`
+(the 223-field baseline payload) with `nds_v31_derived` (the scores above):
+
+```python
+from app.data.v31_repository import V31Repository
+
+repo = V31Repository()
+
+# One ML-ready row per participant: metadata + all payload feature columns + score_* columns
+dataset = repo.get_v31_baseline_dataset()
+
+# Feature columns only, or scores only
+raw_features = repo.get_v31_raw_features()   # source payload fields
+scores = repo.get_v31_scores()               # score_NSES, score_EPI, ...
+country_view = repo.get_v31_by_country("Ghana")
+
+# Coverage summary
+repo.get_record_count()  # {'total_records': ..., 'countries': ..., 'scored_records': ...}
+```
+
+The API also exposes `GET /api/v31/contract`, `GET /api/v31/stats`, and
+`GET /api/v31/dataset` for quick inspection without Python.
 
 ---
 
