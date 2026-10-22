@@ -47,6 +47,16 @@ For local development outside Docker, set the connection parts instead
 There is deliberately no `DATABASE_URL` override, so a stale `.env` can never
 shadow the mounted secrets. TLS is controlled by `DATABASE_SSL_MODE`.
 
+Running the service on the host needs the warehouse port published, which the
+infrastructure dev overlay does (from `neps-infrastructure`):
+
+```bash
+docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d postgres
+```
+
+Then point the parts at it — `DATABASE_HOST=localhost`, `DATABASE_PORT=15432`.
+15432 rather than 5432, because a native PostgreSQL install usually holds 5432.
+
 ### Reading data in Python
 
 ```python
