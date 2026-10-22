@@ -1,0 +1,23 @@
+# Local environment files — credentials must come from Docker Secrets at
+# runtime, never from an image layer. Without this, `COPY . .` bakes a
+# developer's stale .env into the image and it silently beats the mounted
+# /run/secrets files.
+.env
+.env.*
+!.env.example
+
+# Virtual environments and caches
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Version control
+.git/
+.gitignore
+
+# Frozen legacy code that is never imported or collected by CI
+archive/

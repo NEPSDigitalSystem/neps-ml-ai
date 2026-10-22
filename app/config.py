@@ -1,5 +1,6 @@
 from functools import lru_cache
 from pathlib import Path
+
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -36,22 +37,51 @@ class Settings(BaseSettings):
     APP_VERSION: str = "0.1.0"
     APP_ENV: str = "development"
 
-    # Database
-    DATABASE_URL: str = "postgresql+psycopg://neps:neps_password@localhost:5432/neps_db"
-    DATABASE_URL_FILE: str | None = None
-    DATABASE_SSL_MODE: str = "require"
+    # Database — mirrors neps-backend: the URL is always assembled in code from
+    # these parts, so a Docker Secret file (Docker) or an explicit value (local
+    # development) is the only way to supply credentials. There is deliberately
+    # no ``DATABASE_URL`` override: a stale ``.env`` must not be able to shadow
+    # the mounted secrets.
+    DATABASE_HOST: str = "postgres"
+    DATABASE_PORT: int = 5432
+    DATABASE_NAME: str = "neps_db"
+    DATABASE_USER: str | None = None
+    DATABASE_PASSWORD: str | None = None
+    DATABASE_USER_FILE: str | None = None
+    DATABASE_PASSWORD_FILE: str | None = None
+    DATABASE_SSL_MODE: str | None = "require"
+
+    @property
+    def database_user(self) -> str:
+        if self.DATABASE_USER_FILE:
+            secret = _read_secret_file(self.DATABASE_USER_FILE)
+            if secret:
+                return secret
+        return self.DATABASE_USER or "neps"
+
+    @property
+    def database_password(self) -> str:
+        if self.DATABASE_PASSWORD_FILE:
+            secret = _read_secret_file(self.DATABASE_PASSWORD_FILE)
+            if secret:
+                return secret
+        return self.DATABASE_PASSWORD or "neps_password"
 
     @property
     def database_url(self) -> str:
-        """Get database URL from file or environment, always on the psycopg3 driver."""
-        if self.DATABASE_URL_FILE:
-            password = _read_secret_file(self.DATABASE_URL_FILE)
-            # Construct URL with password from secret
-            return _with_psycopg3_driver(
-                f"postgresql://neps:{password}@postgres:5432/neps_db"
-                f"?sslmode={self.DATABASE_SSL_MODE}"
-            )
-        return _with_psycopg3_driver(self.DATABASE_URL)
+        """Assemble the URL from parts — same contract as ``neps-backend``.
+
+        Host/port/name come from the environment; user and password come from a
+        mounted Docker Secret file when present, otherwise from the plain
+        ``DATABASE_USER`` / ``DATABASE_PASSWORD`` values used for local
+        development. No credential is hardcoded and the username is never
+        assumed, so this cannot drift from the infra ``postgres_user`` secret.
+        """
+        ssl_query = f"?sslmode={self.DATABASE_SSL_MODE}" if self.DATABASE_SSL_MODE else ""
+        return _with_psycopg3_driver(
+            f"postgresql://{self.database_user}:{self.database_password}"
+            f"@{self.DATABASE_HOST}:{self.DATABASE_PORT}/{self.DATABASE_NAME}{ssl_query}"
+        )
 
 
 @lru_cache

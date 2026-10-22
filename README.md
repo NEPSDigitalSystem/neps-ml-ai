@@ -34,13 +34,28 @@ Data Platform** (`REDCAP_API_URL` / `REDCAP_MOCK_ENABLED`); it requires no chang
 
 ### Connection
 
-The service reads the database password from a Docker secret and builds the URL itself:
+The service does not hardcode the database user or password. In Docker it builds
+the URL from connection parts plus mounted secrets, exactly like `neps-backend`:
 
 ```bash
-DATABASE_URL_FILE=/run/secrets/postgres_password
+DATABASE_USER_FILE=/run/secrets/postgres_user
+DATABASE_PASSWORD_FILE=/run/secrets/postgres_password
 ```
 
-For local development outside Docker, set `DATABASE_URL` directly (see `.env.example`).
+For local development outside Docker, set the connection parts instead
+(`DATABASE_HOST`, `DATABASE_USER`, `DATABASE_PASSWORD` — see `.env.example`).
+There is deliberately no `DATABASE_URL` override, so a stale `.env` can never
+shadow the mounted secrets. TLS is controlled by `DATABASE_SSL_MODE`.
+
+Running the service on the host needs the warehouse port published, which the
+infrastructure dev overlay does (from `neps-infrastructure`):
+
+```bash
+docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d postgres
+```
+
+Then point the parts at it — `DATABASE_HOST=localhost`, `DATABASE_PORT=15432`.
+15432 rather than 5432, because a native PostgreSQL install usually holds 5432.
 
 ### Reading data in Python
 
